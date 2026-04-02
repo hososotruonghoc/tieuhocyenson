@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>YS Digital School — Trường TH Yên Sơn</title>
+<title>Digital School — Hồ sơ số nhà trường</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.min.js"></script>
@@ -179,7 +179,7 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
 <!-- TOP NAV -->
 <nav style="position:fixed;top:0;left:0;right:0;z-index:200;padding:10px 0;transition:all .4s" id="home-nav">
 <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:8px 20px;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-radius:50px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 20px rgba(0,0,0,.06)">
-  <div style="display:flex;align-items:center;gap:10px;cursor:pointer" data-page="home"><div style="width:36px;height:36px;border-radius:10px;background:#2557D6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;box-shadow:0 3px 10px rgba(37,87,214,.3)">YS</div><div style="font-size:14px;font-weight:700;color:#0f172a">YS <span style="color:#1E3A8A;-webkit-text-fill-color:#1E3A8A">Digital School</span></div></div>
+  <div style="display:flex;align-items:center;gap:10px;cursor:pointer" data-page="home"><div style="width:36px;height:36px;border-radius:10px;background:#2557D6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;box-shadow:0 3px 10px rgba(37,87,214,.3)" id="nav-logo-abbr"></div><div style="font-size:14px;font-weight:700;color:#0f172a"><span id="nav-logo-text"></span> <span style="color:#1E3A8A;-webkit-text-fill-color:#1E3A8A">Digital School</span></div></div>
   <div style="display:flex;align-items:center;gap:4px">
     <span data-page="hoso" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Hồ sơ số</span>
     <span data-page="cbgv" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Hồ sơ CBGV</span>
@@ -197,8 +197,8 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
     <div>
       <div class="hero-badge"><div class="badge-dot"></div> Nền tảng quản trị nhà trường hiện đại</div>
       <div class="hero-pre">Nền tảng quản trị số</div>
-      <h1 class="hero-title" id="hero-school-name">Trường Tiểu Học<br>Yên Sơn</h1>
-      <div class="hero-loc" id="hero-addr"><i class="fa-solid fa-location-dot"></i> Xã Đô Lương, tỉnh Nghệ An</div>
+      <h1 class="hero-title" id="hero-school-name"></h1>
+      <div class="hero-loc" id="hero-addr"><i class="fa-solid fa-location-dot"></i> </div>
       <p class="hero-desc">Nền tảng tích hợp Hồ sơ số, Sổ chủ nhiệm điện tử và Quản lý chất lượng giáo dục — hướng tới quản trị nhà trường minh bạch, chính xác và hiệu quả.</p>
       <div class="hero-tiles" style="grid-template-columns:1fr 1fr 1fr;max-width:480px">
         <div class="htile ht2" data-page="hoso"><div class="htile-icons"><i class="fa-solid fa-folder-open"></i><i class="fa-solid fa-building-columns"></i></div><div class="htile-name">Hồ sơ số nhà trường</div></div>
@@ -264,7 +264,7 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
 
 <!-- FOOTER -->
 <footer style="padding:20px 32px;background:#0F1D45;color:rgba(255,255,255,.5);text-align:center">
-<div style="font-size:13px;margin-bottom:6px"><b style="color:#fff">YS Digital School</b> — <span style="color:#60A5FA">Trường TH Yên Sơn</span> · Năm học 2025-2026 · v5.0</div>
+<div style="font-size:13px;margin-bottom:6px" id="footer-info"><b style="color:#fff">Digital School</b> — <span style="color:#60A5FA" id="footer-school"></span> · <span id="footer-year"></span> · v5.0</div>
 <div style="font-size:11px;opacity:.6">© 2026 — Thiết kế: Chung Trần — Zalo 0913 031 073</div>
 </footer>
 </div>
@@ -288,7 +288,7 @@ const CBGV_LIST = [{"n": "Nguyễn Thị Hoài Hương — Hiệu trưởng", "l
 </script>
 <script>
 var SCHOOL="Trường TH Yên Sơn",ADDR="Xã Đô Lương, tỉnh Nghệ An",YEAR="2025 - 2026";
-var GAS_URL="https://script.google.com/macros/s/AKfycbzIecN63vEHqJQsuKQhIywvXJc42uxbSk4LZOTw2BkL_KapT7E4jVq8PSz-lhu4VewC/exec";
+var GAS_URL="";
 var GC={1:{bg:"#1E3A8A",lt:"#DBEAFE",ac:"#3B82F6",gr:"linear-gradient(135deg,#1E3A8A,#2557D6)"},2:{bg:"#1D4ED8",lt:"#E0EDFF",ac:"#60A5FA",gr:"linear-gradient(135deg,#1D4ED8,#3B82F6)"},3:{bg:"#2557D6",lt:"#EFF6FF",ac:"#93C5FD",gr:"linear-gradient(135deg,#2557D6,#60A5FA)"},4:{bg:"#1E40AF",lt:"#DBEAFE",ac:"#3B82F6",gr:"linear-gradient(135deg,#1E40AF,#2563EB)"},5:{bg:"#1A3590",lt:"#E0EDFF",ac:"#60A5FA",gr:"linear-gradient(135deg,#1A3590,#2557D6)"}};
 var GI={1:"🌱",2:"🌻",3:"🌟",4:"🚀",5:"🏆"};
 var HOSO_COLORS=["linear-gradient(135deg,#1E3A8A,#1E40AF)","linear-gradient(135deg,#1E40AF,#2557D6)","linear-gradient(135deg,#2557D6,#3B82F6)","linear-gradient(135deg,#1D4ED8,#2563EB)","linear-gradient(135deg,#1E3A8A,#2557D6)","linear-gradient(135deg,#1E40AF,#3B82F6)","linear-gradient(135deg,#2557D6,#60A5FA)","linear-gradient(135deg,#1D4ED8,#60A5FA)","linear-gradient(135deg,#0F2260,#1E3A8A)","linear-gradient(135deg,#0C1C50,#162E80)"];
@@ -904,7 +904,7 @@ function renderAdmin() {
     var cfgFields = [
       ["cfg-school","Tên trường",SCHOOL,"fa-school"],
       ["cfg-addr","Địa chỉ",ADDR,"fa-location-dot"],
-      ["cfg-principal","Hiệu trưởng","Nguyễn Thị Hoài Hương","fa-user-tie"],
+      ["cfg-principal","Hiệu trưởng","","fa-user-tie"],
       ["cfg-year","Năm học",YEAR,"fa-calendar"],
       ["cfg-phone","Điện thoại","","fa-phone"],
       ["cfg-email","Email","","fa-envelope"]
@@ -982,8 +982,14 @@ function renderAdmin() {
     h += '<input type="file" id="file-gv" accept=".xlsx,.xls" style="display:none" onchange="handleUploadGV(this)">';
     h += '</div>';
 
-    // Teacher form table
-    var allClasses = ["1A","1B","1C","1D","1E","2A","2B","2C","2D","2E","3A","3B","3C","3D","3E","4A","4B","4C","4D","4E","5A","5B","5C","5D","5E"];
+    // Teacher form table - danh sách lớp ĐỘNG từ dữ liệu
+    var dynClasses = Object.keys(TEACHERS_DATA).sort();
+    // Thêm các lớp từ ALL_CLASSES nếu có HS nhưng chưa có GVCN
+    ALL_CLASSES.forEach(function(c){ if(dynClasses.indexOf(c)<0) dynClasses.push(c); });
+    dynClasses.sort();
+    // Nếu chưa có dữ liệu nào, dùng danh sách mặc định
+    if(dynClasses.length===0) dynClasses=["1A","1B","1C","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C","5D"];
+    var allClasses = dynClasses;
     h += '<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px">';
     for (var g = 1; g <= 5; g++) {
       h += '<div class="card" style="padding:16px;border-top:3px solid ' + GC[g].bg + '">';
@@ -1109,9 +1115,9 @@ function downloadTemplateHS() {
   var title = [SCHOOL + " - DANH SÁCH HỌC SINH - Năm học " + YEAR];
   var headers = ["STT", "Lớp", "Mã HS", "Họ và tên", "Ngày sinh", "Giới tính", "Dân tộc", "Địa chỉ", "Số điện thoại", "Họ tên cha", "Nghề nghiệp cha", "Họ tên mẹ", "Nghề nghiệp mẹ"];
   var sample = [
-    [1, "1A", "", "Nguyễn Văn A", "01/01/2019", "Nam", "Kinh", "Xã Đô Lương", "0912345678", "Nguyễn Văn B", "Nông nghiệp", "Trần Thị C", "Nông nghiệp"],
-    [2, "1A", "", "Trần Thị D", "15/03/2019", "Nữ", "Kinh", "Xã Đô Lương", "0987654321", "Trần Văn E", "Công nhân", "Lê Thị F", "Giáo viên"],
-    [3, "1B", "", "Lê Văn G", "20/05/2019", "Nam", "Thái", "Xã Châu Lý", "0356789012", "Lê Văn H", "Tự do", "Nguyễn Thị I", "Nông nghiệp"]
+    [1, "1A", "", "Nguyễn Văn A", "01/01/2019", "Nam", "Kinh", "Xã Quảng Châu", "0912 345 ...", "Nguyễn Văn B", "Tự do", "Trần Thị C", "Tự do"],
+    [2, "1A", "", "Trần Thị D", "15/03/2019", "Nữ", "Kinh", "Xã Quảng Châu", "0912 345 ...", "Trần Văn E", "Công nhân", "Lê Thị F", "Giáo viên"],
+    [3, "1B", "", "Lê Văn G", "20/05/2019", "Nam", "Thái", "Xã Quảng Châu", "0912 345 ...", "Lê Văn H", "Tự do", "Nguyễn Thị I", "Tự do"]
   ];
   var data = [title, headers].concat(sample);
   var ws = XLSX.utils.aoa_to_sheet(data);
@@ -1135,7 +1141,14 @@ function downloadTemplateGV() {
   var title = [SCHOOL + " - DANH SÁCH GVCN - Năm học " + YEAR];
   var headers = ["Lớp", "Giáo viên chủ nhiệm"];
   var rows = [title, headers];
-  var classes = ["1A","1B","1C","1D","1E","2A","2B","2C","2D","2E","3A","3B","3C","3D","3E","4A","4B","4C","4D","4E","5A","5B","5C","5D","5E"];
+  var classes = Object.keys(TEACHERS_DATA).sort();
+  if(classes.length===0){
+    // Lấy từ ALL_CLASSES hoặc mặc định
+    classes = ALL_CLASSES.length > 0 ? ALL_CLASSES.slice() : ["1A","1B","1C","2A","2B","2C","3A","3B","3C","4A","4B","4C","5A","5B","5C","5D"];
+  }
+  // Thêm các lớp có HS mà chưa có GV
+  ALL_CLASSES.forEach(function(c){ if(classes.indexOf(c)<0) classes.push(c); });
+  classes.sort();
   classes.forEach(function(c) { rows.push([c, TCH[c] || ""]); });
   var ws = XLSX.utils.aoa_to_sheet(rows);
   ws["!cols"] = [{wch:10},{wch:35}];
@@ -1251,16 +1264,48 @@ function handleUploadGV(input) {
       var ws = wb.Sheets[sheetName];
       var json = XLSX.utils.sheet_to_json(ws, {header: 1});
 
+      // Smart header detection: tìm dòng có "Lớp" + "GVCN/Giáo viên"
+      var hdrIdx = 0;
+      for (var i = 0; i < Math.min(10, json.length); i++) {
+        var rowStr = (json[i]||[]).map(function(c){return String(c||"").toLowerCase()}).join("|");
+        if ((rowStr.indexOf("lớp")>=0||rowStr.indexOf("lop")>=0) && (rowStr.indexOf("giáo viên")>=0||rowStr.indexOf("gvcn")>=0||rowStr.indexOf("chủ nhiệm")>=0)) {
+          hdrIdx = i; break;
+        }
+      }
+
+      // XÓA SẠCH dữ liệu GVCN cũ trước khi ghi mới
+      Object.keys(TEACHERS_DATA).forEach(function(k) { delete TEACHERS_DATA[k]; });
+
       var count = 0;
-      for (var i = 1; i < json.length; i++) {
+      for (var i = hdrIdx + 1; i < json.length; i++) {
         var r = json[i];
         if (!r || !r[0]) continue;
         var cls = String(r[0]).trim();
         var name = String(r[1] || "").trim();
-        if (cls && name) { TEACHERS_DATA[cls] = name; count++; }
+        // Bỏ qua header/title rows
+        var clsL = cls.toLowerCase();
+        if (clsL === "lớp" || clsL === "lop" || clsL === "tt" || cls.length > 5) continue;
+        if (cls && name) {
+          TEACHERS_DATA[cls] = name;
+          // Tự tạo mật khẩu mặc định nếu chưa có
+          if (!CLASS_PW[cls]) CLASS_PW[cls] = cls + "gvcn";
+          count++;
+        }
       }
       reloadAppData();
-      showUploadResult("success", "Đã cập nhật <b>" + count + " GVCN</b>!");
+      cacheCurrentData();
+      showUploadResult("success", "✅ Đã cập nhật <b>" + count + " GVCN</b> (xóa dữ liệu cũ)!");
+      // Đồng bộ lên GAS
+      if (GAS_URL) {
+        var rows = [];
+        Object.keys(TEACHERS_DATA).sort().forEach(function(c) {
+          rows.push({lop:c, gvcn:TEACHERS_DATA[c], pw:CLASS_PW[c]||c+"gvcn"});
+        });
+        fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"teachers",rows:rows})})
+          .then(function(r){return r.json()})
+          .then(function(d){if(d.success)console.log("✅ GVCN synced to GAS")})
+          .catch(function(e){console.log("⚠️ GAS sync failed:",e.message)});
+      }
       setTimeout(function() { renderAdmin(); }, 800);
     } catch (err) {
       showUploadResult("error", "Lỗi đọc file: " + err.message);
@@ -1271,26 +1316,31 @@ function handleUploadGV(input) {
 }
 
 function saveTeachersFromForm() {
-  var classes = ["1A","1B","1C","1D","1E","2A","2B","2C","2D","2E","3A","3B","3C","3D","3E","4A","4B","4C","4D","4E","5A","5B","5C","5D","5E"];
+  // Lấy danh sách lớp từ form hiện tại (động, không hardcode)
+  var inputs = document.querySelectorAll("[id^='gv-']");
   var rows = [];
-  classes.forEach(function(c) {
-    var el = document.getElementById("gv-" + c);
+  inputs.forEach(function(el) {
+    var c = el.id.replace("gv-","");
     var pwEl = document.getElementById("cpw-" + c);
-    var name = el ? el.value.trim() : "";
+    var name = el.value.trim();
     var pw = pwEl ? pwEl.value.trim() : (c + "gvcn");
     if (name) { TEACHERS_DATA[c] = name; }
     else { delete TEACHERS_DATA[c]; }
     CLASS_PW[c] = pw;
-    rows.push({lop:c, gvcn:name, pw:pw});
+    if (name) rows.push({lop:c, gvcn:name, pw:pw});
   });
   reloadAppData();
+  cacheCurrentData();
   if (GAS_URL) {
     fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"teachers",rows:rows})})
       .then(function(r){return r.json()})
-      .then(function(d){showUploadResult("success","Đã lưu GVCN + mật khẩu lên Google Sheet!")})
-      .catch(function(e){showUploadResult("error","Lỗi: "+e.message)});
+      .then(function(d){
+        if(d.success) showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN lên Google Sheet + PC!");
+        else showUploadResult("error","⚠️ Lỗi GAS. Đã lưu trên PC.");
+      })
+      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
   } else {
-    showUploadResult("success","Đã lưu GVCN!");
+    showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN trên PC!");
   }
   setTimeout(function() { renderAdmin(); }, 600);
 }
@@ -1673,24 +1723,33 @@ function saveSchoolConfig() {
   var s = document.getElementById("cfg-school");
   var a = document.getElementById("cfg-addr");
   var y = document.getElementById("cfg-year");
+  var p = document.getElementById("cfg-principal");
+  var ph = document.getElementById("cfg-phone");
+  var em = document.getElementById("cfg-email");
   if (s && s.value.trim()) SCHOOL = s.value.trim();
   if (a && a.value.trim()) ADDR = a.value.trim();
   if (y && y.value.trim()) YEAR = y.value.trim();
-  // Update all visible elements
-  document.querySelectorAll(".app-logo-name").forEach(function(el){el.textContent=SCHOOL});
-  document.querySelectorAll(".app-logo-addr").forEach(function(el){el.textContent=ADDR});
-  showUploadResult("success","Đã cập nhật thông tin trường!");
+  // Cập nhật TOÀN BỘ giao diện
+  updateSchoolInfo();
+  // Lưu vào PC (localStorage)
+  cacheCurrentData();
+  showUploadResult("success","✅ Đã cập nhật thông tin trường trên PC!");
+  // Tự đồng bộ lên GAS nếu có URL
+  if (GAS_URL) {
+    var principal = p ? p.value.trim() : "";
+    var phone = ph ? ph.value.trim() : "";
+    var email = em ? em.value.trim() : "";
+    fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"config",school:SCHOOL,addr:ADDR,year:YEAR,principal:principal,phone:phone,email:email,adminPW:ADMIN_PW})})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(d.success) showUploadResult("success","✅ Đã lưu thông tin trường lên Google Sheet + PC!");
+        else showUploadResult("error","⚠️ Lỗi GAS. Đã lưu trên PC.");
+      })
+      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
+  }
 }
 function saveConfigToGAS() {
-  if (!GAS_URL) { showUploadResult("error","Chưa có URL GAS!"); return; }
-  var principal = (document.getElementById("cfg-principal")||{}).value || "";
-  var phone = (document.getElementById("cfg-phone")||{}).value || "";
-  var email = (document.getElementById("cfg-email")||{}).value || "";
-  showUploadResult("success","Đang đồng bộ...");
-  fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"config",school:SCHOOL,addr:ADDR,year:YEAR,principal:principal,phone:phone,email:email,adminPW:ADMIN_PW})})
-    .then(function(r){return r.json()})
-    .then(function(d){showUploadResult("success","Đã đồng bộ cấu hình lên Google Sheet!")})
-    .catch(function(e){showUploadResult("error","Lỗi: "+e.message)});
+  saveSchoolConfig();
 }
 
 // ===== EXPORT FUNCTIONS =====
@@ -2007,10 +2066,44 @@ function updateHomeStats(){
   if(el){el.dataset.target=String(Object.keys(TCH).length||CBGV_LIST.length);el.dataset.animated="";animateCounter(el);}
   el=document.getElementById("sc-khoi");
   if(el){var k=new Set();ALL_CLASSES.forEach(function(c){k.add(c[0])});el.dataset.target=String(k.size||5);el.dataset.animated="";animateCounter(el);}
-  // Update hero card subtitle
   var heroSub=document.querySelector('.hcard.hc1 .hcard-sub');
   if(heroSub)heroSub.textContent=ALL_CLASSES.length+' lớp · '+STUDENTS_DATA.length+' học sinh · Nhận xét AI';
+  updateSchoolInfo();
 }
+
+function updateSchoolInfo(){
+  // Tạo viết tắt từ tên trường (VD: "Trường TH Yên Sơn" → "YS", "Trường TH Diễn Liên" → "DL")
+  var words=SCHOOL.replace(/Trường\s*(TH|Tiểu Học)\s*/i,"").trim().split(/\s+/);
+  var abbr=words.length>=2?words[0].charAt(0)+words[words.length-1].charAt(0):words[0].substring(0,2);
+  abbr=abbr.toUpperCase();
+  // Hero title: tách "Trường Tiểu Học" + tên riêng
+  var heroEl=document.getElementById("hero-school-name");
+  if(heroEl){
+    var shortName=SCHOOL.replace(/Trường\s*(TH|Tiểu Học)\s*/i,"").trim();
+    heroEl.innerHTML="Trường Tiểu Học<br>"+shortName;
+  }
+  // Hero address
+  var addrEl=document.getElementById("hero-addr");
+  if(addrEl) addrEl.innerHTML='<i class="fa-solid fa-location-dot"></i> '+ADDR;
+  // Nav logo
+  var logoAbbr=document.getElementById("nav-logo-abbr");
+  if(logoAbbr) logoAbbr.textContent=abbr;
+  var logoText=document.getElementById("nav-logo-text");
+  if(logoText) logoText.textContent=abbr;
+  // Footer
+  var footerSchool=document.getElementById("footer-school");
+  if(footerSchool) footerSchool.textContent=SCHOOL;
+  var footerYear=document.getElementById("footer-year");
+  if(footerYear) footerYear.textContent="Năm học "+YEAR;
+  // Page title
+  document.title=abbr+" Digital School — "+SCHOOL;
+  // App header logos
+  document.querySelectorAll(".app-logo-name").forEach(function(el){el.textContent=SCHOOL});
+  document.querySelectorAll(".app-logo-addr").forEach(function(el){el.textContent=ADDR});
+}
+
+// Chạy ngay khi DOM ready
+document.addEventListener("DOMContentLoaded",function(){updateSchoolInfo();});
 </script>
 </body>
 </html>
