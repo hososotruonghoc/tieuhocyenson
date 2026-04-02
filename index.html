@@ -288,7 +288,7 @@ const CBGV_LIST = [{"n": "Nguyễn Thị Hoài Hương — Hiệu trưởng", "l
 </script>
 <script>
 var SCHOOL="Trường TH Yên Sơn",ADDR="Xã Đô Lương, tỉnh Nghệ An",YEAR="2025 - 2026";
-var GAS_URL="";
+var GAS_URL="https://script.google.com/macros/s/AKfycbzIecN63vEHqJQsuKQhIywvXJc42uxbSk4LZOTw2BkL_KapT7E4jVq8PSz-lhu4VewC/exec";
 var GC={1:{bg:"#1E3A8A",lt:"#DBEAFE",ac:"#3B82F6",gr:"linear-gradient(135deg,#1E3A8A,#2557D6)"},2:{bg:"#1D4ED8",lt:"#E0EDFF",ac:"#60A5FA",gr:"linear-gradient(135deg,#1D4ED8,#3B82F6)"},3:{bg:"#2557D6",lt:"#EFF6FF",ac:"#93C5FD",gr:"linear-gradient(135deg,#2557D6,#60A5FA)"},4:{bg:"#1E40AF",lt:"#DBEAFE",ac:"#3B82F6",gr:"linear-gradient(135deg,#1E40AF,#2563EB)"},5:{bg:"#1A3590",lt:"#E0EDFF",ac:"#60A5FA",gr:"linear-gradient(135deg,#1A3590,#2557D6)"}};
 var GI={1:"🌱",2:"🌻",3:"🌟",4:"🚀",5:"🏆"};
 var HOSO_COLORS=["linear-gradient(135deg,#1E3A8A,#1E40AF)","linear-gradient(135deg,#1E40AF,#2557D6)","linear-gradient(135deg,#2557D6,#3B82F6)","linear-gradient(135deg,#1D4ED8,#2563EB)","linear-gradient(135deg,#1E3A8A,#2557D6)","linear-gradient(135deg,#1E40AF,#3B82F6)","linear-gradient(135deg,#2557D6,#60A5FA)","linear-gradient(135deg,#1D4ED8,#60A5FA)","linear-gradient(135deg,#0F2260,#1E3A8A)","linear-gradient(135deg,#0C1C50,#162E80)"];
@@ -1298,11 +1298,25 @@ function saveTeachersFromForm() {
 // ===== HELPERS =====
 function findColumns(headers) {
   var map = {lop:1, maHS:2, hoTen:3, ngaySinh:4, gioiTinh:5, danToc:6, diaChi:7, sdt:8, cha:9, ngheCha:10, me:11, ngheMe:12};
-  var keywords = {lop:["lớp","lop"], maHS:["mã","mahs","ma hs"], hoTen:["họ và tên","họ tên","ho ten","hoten"], ngaySinh:["ngày sinh","ngaysinh"], gioiTinh:["giới tính","gioi tinh","gt"], danToc:["dân tộc","dan toc"], diaChi:["địa chỉ","dia chi"], sdt:["số điện","sdt","điện thoại","phone"], cha:["họ tên cha","ten cha","cha"], ngheCha:["nghề.*cha","nghe.*cha"], me:["họ tên mẹ","ten me","mẹ","me"], ngheMe:["nghề.*mẹ","nghe.*me"]};
+  // Process parent-related columns FIRST (cha/mẹ), then general columns
+  // This prevents "Họ tên mẹ" from matching "hoTen"
+  var parentKeys = {ngheCha:["nghề.*cha","nghe.*cha","nghề nghiệp cha"], ngheMe:["nghề.*mẹ","nghe.*me","nghề nghiệp mẹ"], cha:["họ tên cha","tên cha","ho ten cha"], me:["họ tên mẹ","tên mẹ","ho ten me"]};
+  var parentMatched = {};
   headers.forEach(function(h, idx) {
-    var hl = h.toLowerCase();
-    Object.keys(keywords).forEach(function(k) {
-      keywords[k].forEach(function(kw) {
+    var hl = h.toLowerCase().trim();
+    Object.keys(parentKeys).forEach(function(k) {
+      parentKeys[k].forEach(function(kw) {
+        if (new RegExp(kw, "i").test(hl)) { map[k] = idx; parentMatched[idx] = true; }
+      });
+    });
+  });
+  // Now process main columns, SKIPPING any column already matched to parent fields
+  var mainKeys = {lop:["^lớp$","^lop$"], maHS:["mã","mahs","ma hs","mã hs"], hoTen:["họ và tên","ho va ten","^họ tên$","^ho ten$","^hoten$"], ngaySinh:["ngày sinh","ngaysinh"], gioiTinh:["giới tính","gioi tinh","^gt$"], danToc:["dân tộc","dan toc"], diaChi:["địa chỉ","dia chi"], sdt:["số điện","^sdt$","điện thoại","phone","số đt"]};
+  headers.forEach(function(h, idx) {
+    if (parentMatched[idx]) return; // Skip columns already matched to parent fields
+    var hl = h.toLowerCase().trim();
+    Object.keys(mainKeys).forEach(function(k) {
+      mainKeys[k].forEach(function(kw) {
         if (new RegExp(kw, "i").test(hl)) map[k] = idx;
       });
     });
@@ -1416,7 +1430,7 @@ function exportCBGVExcel() {
   var wb = XLSX.utils.book_new();
   var title = [SCHOOL + " - DANH SÁCH CÁN BỘ, GIÁO VIÊN, NHÂN VIÊN"];
   var sub = ["Năm học: " + YEAR + " · Địa chỉ: " + ADDR];
-  var headers = ["TT", "Họ và tên", "Ngày sinh", "Chức vụ", "Nhiệm vụ được giao", "Ghi chú"];
+  var headers = ["TT", "Họ và tên", "Ngày sinh", "Chức vụ", "Nhiệm vụ được giao", "GVCN lớp", "Số ĐT", "Ghi chú"];
   var rows = [title, sub, headers];
   var trs = document.querySelectorAll("#cbgv-table tbody tr");
   if (trs.length > 0) {
@@ -1425,6 +1439,8 @@ function exportCBGVExcel() {
       var dob = tr.querySelector(".cbgv-dob");
       var role = tr.querySelector(".cbgv-role");
       var task = tr.querySelector(".cbgv-task");
+      var cls = tr.querySelector(".cbgv-class");
+      var phone = tr.querySelector(".cbgv-phone");
       var note = tr.querySelector(".cbgv-note");
       rows.push([
         i + 1,
@@ -1432,31 +1448,34 @@ function exportCBGVExcel() {
         dob ? dob.value : "",
         role ? role.value : "",
         task ? task.value : "",
+        cls ? cls.value : "",
+        phone ? phone.value : "",
         note ? note.value : ""
       ]);
     });
   } else if (typeof CBGV_LIST !== "undefined") {
     CBGV_LIST.forEach(function(cb, i) {
-      rows.push([i + 1, cb.n.replace(/^\d+\.\s*/, ""), "", "Giáo viên", "", ""]);
+      var parts = cb.n.split(" — ");
+      rows.push([i + 1, parts[0] || "", "", parts[1] || "Giáo viên", "", "", "", ""]);
     });
   }
   var ws = XLSX.utils.aoa_to_sheet(rows);
-  ws["!cols"] = [{wch:5}, {wch:28}, {wch:14}, {wch:18}, {wch:28}, {wch:20}];
-  ws["!merges"] = [{s:{r:0,c:0},e:{r:0,c:5}}, {s:{r:1,c:0},e:{r:1,c:5}}];
+  ws["!cols"] = [{wch:5}, {wch:28}, {wch:14}, {wch:18}, {wch:28}, {wch:10}, {wch:14}, {wch:20}];
+  ws["!merges"] = [{s:{r:0,c:0},e:{r:0,c:7}}, {s:{r:1,c:0},e:{r:1,c:7}}];
   // Styles
-  var cols = "ABCDEF";
+  var cols = "ABCDEFGH";
   var titleS = {font:{bold:true,sz:14,color:{rgb:"FFFFFF"}},fill:{fgColor:{rgb:"1E3A8A"}},alignment:{horizontal:"center",vertical:"center"}};
   var subS = {font:{italic:true,sz:11,color:{rgb:"FFFFFF"}},fill:{fgColor:{rgb:"2557D6"}},alignment:{horizontal:"center"}};
   var hdrS = {font:{bold:true,sz:11,color:{rgb:"FFFFFF"}},fill:{fgColor:{rgb:"1D4ED8"}},alignment:{horizontal:"center",vertical:"center",wrapText:true},border:{top:{style:"thin",color:{rgb:"FFFFFF"}},bottom:{style:"thin",color:{rgb:"FFFFFF"}},left:{style:"thin",color:{rgb:"FFFFFF"}},right:{style:"thin",color:{rgb:"FFFFFF"}}}};
   var cellS = {border:{top:{style:"thin",color:{rgb:"D1D5DB"}},bottom:{style:"thin",color:{rgb:"D1D5DB"}},left:{style:"thin",color:{rgb:"D1D5DB"}},right:{style:"thin",color:{rgb:"D1D5DB"}}},alignment:{vertical:"center"}};
   var cellC = {border:{top:{style:"thin",color:{rgb:"D1D5DB"}},bottom:{style:"thin",color:{rgb:"D1D5DB"}},left:{style:"thin",color:{rgb:"D1D5DB"}},right:{style:"thin",color:{rgb:"D1D5DB"}}},alignment:{horizontal:"center",vertical:"center"}};
-  for (var c = 0; c < 6; c++) {
+  for (var c = 0; c < 8; c++) {
     var a1 = cols[c]+"1"; if(ws[a1])ws[a1].s=titleS; else ws[a1]={v:"",t:"s",s:titleS};
     var a2 = cols[c]+"2"; if(ws[a2])ws[a2].s=subS; else ws[a2]={v:"",t:"s",s:subS};
     var a3 = cols[c]+"3"; if(ws[a3])ws[a3].s=hdrS;
   }
   for (var r = 3; r < rows.length; r++) {
-    for (var c = 0; c < 6; c++) {
+    for (var c = 0; c < 8; c++) {
       var addr = cols[c] + (r + 1);
       var st = (c === 0) ? cellC : cellS;
       if (ws[addr]) ws[addr].s = st; else ws[addr] = {v:"", t:"s", s:st};
@@ -1484,14 +1503,20 @@ function saveCBGVTable() {
       if (cls && cls.value.trim()) TEACHERS_DATA[cls.value.trim()] = name.value.trim();
     }
   });
+  GAS_CBGVNV = data;
   reloadAppData();
+  // Luôn lưu PC trước
+  cacheCurrentData();
   if (GAS_URL) {
     fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"cbgvnv",rows:data})})
       .then(function(r){return r.json()})
-      .then(function(d){showUploadResult("success","Đã lưu "+data.length+" CBGV lên Google Sheet!")})
-      .catch(function(e){showUploadResult("error","Lỗi: "+e.message)});
+      .then(function(d){
+        if(d.success) showUploadResult("success","✅ Đã lưu "+data.length+" CBGV lên Google Sheet + PC!");
+        else showUploadResult("error","⚠️ Lỗi GAS: "+(d.error||"Không rõ")+". Đã lưu trên PC.");
+      })
+      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
   } else {
-    showUploadResult("success","Đã lưu "+data.length+" CBGV!");
+    showUploadResult("success","✅ Đã lưu "+data.length+" CBGV trên PC!");
   }
 }
 
@@ -1536,16 +1561,60 @@ function handleUploadCBGV(input) {
       var json = XLSX.utils.sheet_to_json(ws, {header:1});
       var tbody = document.querySelector("#cbgv-table tbody");
       if (!tbody) return;
+      // Smart header detection
+      var hdrIdx = 0;
+      for (var i = 0; i < Math.min(10, json.length); i++) {
+        var rowStr = (json[i]||[]).map(function(c){return String(c||"").toLowerCase()}).join("|");
+        if (rowStr.indexOf("họ") >= 0 && (rowStr.indexOf("tên") >= 0 || rowStr.indexOf("ten") >= 0) && rowStr.indexOf("chức") >= 0) { hdrIdx = i; break; }
+        if (rowStr.indexOf("tt") >= 0 && rowStr.indexOf("chức vụ") >= 0) { hdrIdx = i; break; }
+      }
+      var headers = (json[hdrIdx]||[]).map(function(c){return String(c||"").toLowerCase().trim()});
+      // Map columns by header keywords
+      var col = {name:-1,dob:-1,role:-1,task:-1,cls:-1,phone:-1,note:-1};
+      headers.forEach(function(h,idx){
+        if((h.indexOf("họ")>=0&&h.indexOf("tên")>=0&&h.indexOf("cha")<0&&h.indexOf("mẹ")<0)||h==="ho ten"||h==="hoten") col.name=idx;
+        else if(h.indexOf("ngày sinh")>=0||h.indexOf("ngaysinh")>=0) col.dob=idx;
+        else if(h.indexOf("chức vụ")>=0||h==="chức vụ") col.role=idx;
+        else if(h.indexOf("nhiệm vụ")>=0||h.indexOf("nhiem vu")>=0) col.task=idx;
+        else if(h.indexOf("gvcn")>=0||h.indexOf("lớp")>=0) col.cls=idx;
+        else if(h.indexOf("điện thoại")>=0||h.indexOf("số đt")>=0||h.indexOf("sdt")>=0||h.indexOf("phone")>=0||h.indexOf("số điện")>=0) col.phone=idx;
+        else if(h.indexOf("ghi chú")>=0||h.indexOf("note")>=0) col.note=idx;
+      });
+      // Fallback: if name not found by header, assume column B (index 1)
+      if(col.name<0) col.name=1;
       tbody.innerHTML = "";
       var n = 0;
-      for (var i = 1; i < json.length; i++) {
+      for (var i = hdrIdx+1; i < json.length; i++) {
         var r = json[i];
-        if (!r || !r[0]) continue;
+        if (!r) continue;
+        var nameVal = String(r[col.name]||"").trim();
+        if (!nameVal || nameVal.length < 2) continue;
+        var nameL = nameVal.toLowerCase();
+        if (nameL === "họ và tên" || nameL === "ho va ten" || nameL === "tt") continue;
         n++;
+        var dobVal = col.dob>=0 ? formatCellDate(r[col.dob]) : "";
+        var roleVal = col.role>=0 ? String(r[col.role]||"").trim() : "Giáo viên";
+        var taskVal = col.task>=0 ? String(r[col.task]||"").trim() : "";
+        var clsVal = col.cls>=0 ? String(r[col.cls]||"").trim() : "";
+        var phoneVal = col.phone>=0 ? String(r[col.phone]||"").trim() : "";
+        var noteVal = col.note>=0 ? String(r[col.note]||"").trim() : "";
         var tr = document.createElement("tr");
-        tr.innerHTML = '<td style="text-align:center">'+n+'</td><td><input class="cbgv-name" value="'+esc(String(r[0]||""))+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:12px;font-family:var(--sans);outline:none;background:transparent"></td><td><input class="cbgv-dob" value="'+esc(String(r[1]||""))+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td><select class="cbgv-role" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"><option>Giáo viên</option><option>Hiệu trưởng</option><option>Phó HT</option><option>Tổ trưởng CM</option><option>Tổ phó CM</option><option>Kế toán</option><option>GV TPT Đội</option><option>Nhân viên</option></select></td><td><input class="cbgv-class" value="'+esc(String(r[3]||""))+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:12px;font-family:var(--sans);outline:none;background:transparent;text-align:center"></td><td><input class="cbgv-phone" value="'+esc(String(r[4]||""))+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td style="text-align:center"><button onclick="this.parentElement.parentElement.remove()" style="background:none;border:none;color:#DC2626;cursor:pointer;font-size:14px"><i class="fa-solid fa-trash-can"></i></button></td>';
+        tr.innerHTML = '<td style="text-align:center">'+n+'</td><td><input class="cbgv-name" value="'+esc(nameVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:12px;font-family:var(--sans);outline:none;background:transparent"></td><td><input class="cbgv-dob" value="'+esc(dobVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td><select class="cbgv-role" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"><option>Giáo viên</option><option>Hiệu trưởng</option><option>Phó HT</option><option>Tổ trưởng CM</option><option>Tổ phó CM</option><option>Kế toán</option><option>GV TPT Đội</option><option>Nhân viên</option></select></td><td><input class="cbgv-task" value="'+esc(taskVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td><input class="cbgv-class" value="'+esc(clsVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:12px;font-family:var(--sans);outline:none;background:transparent;text-align:center"></td><td><input class="cbgv-phone" value="'+esc(phoneVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td><input class="cbgv-note" value="'+esc(noteVal)+'" style="width:100%;border:none;border-bottom:1px solid #e2e8f0;padding:4px;font-size:11px;font-family:var(--sans);outline:none;background:transparent"></td><td style="text-align:center"><button onclick="this.parentElement.parentElement.remove()" style="background:none;border:none;color:#DC2626;cursor:pointer;font-size:14px"><i class="fa-solid fa-trash-can"></i></button></td>';
         tbody.appendChild(tr);
-        if (r[2]) { var sel = tr.querySelector("select"); if(sel){for(var j=0;j<sel.options.length;j++){if(sel.options[j].text===String(r[2]))sel.selectedIndex=j;}} }
+        // Set select value
+        var sel = tr.querySelector("select");
+        if(sel && roleVal){
+          for(var j=0;j<sel.options.length;j++){
+            if(sel.options[j].text.toLowerCase()===roleVal.toLowerCase()){sel.selectedIndex=j;break;}
+          }
+          // If no exact match, check partial match
+          if(sel.value!==roleVal){
+            var rl=roleVal.toLowerCase();
+            for(var j=0;j<sel.options.length;j++){
+              if(rl.indexOf(sel.options[j].text.toLowerCase())>=0||sel.options[j].text.toLowerCase().indexOf(rl)>=0){sel.selectedIndex=j;break;}
+            }
+          }
+        }
       }
       showUploadResult("success","Đã tải "+n+" CBGV từ file!");
     } catch(err) { showUploadResult("error","Lỗi: "+err.message); }
@@ -1816,19 +1885,23 @@ function cacheCurrentData() {
       cbgvnv: GAS_CBGVNV,
       soChuNhiem: GAS_CN_DATA,
       totalStudents: STUDENTS_DATA.length,
-      totalClasses: ALL_CLASSES.length
+      totalClasses: ALL_CLASSES.length,
+      savedAt: new Date().toLocaleString("vi-VN")
     };
-    sessionStorage.setItem("qh_cache", JSON.stringify(data));
-  } catch(e) {}
+    localStorage.setItem("ys_data", JSON.stringify(data));
+    console.log("💾 Đã lưu " + STUDENTS_DATA.length + " HS vào PC (localStorage)");
+  } catch(e) { console.log("⚠️ Lỗi lưu localStorage:", e.message); }
 }
 
 
 function syncStudentsToGAS(students) {
+  // Luôn lưu PC trước
+  cacheCurrentData();
   if (!GAS_URL) { 
-    showUploadResult("success", "Đã tải "+students.length+" HS (chưa kết nối GAS)"); 
+    showUploadResult("success", "✅ Đã lưu "+students.length+" HS trên PC (chưa kết nối Google Sheet)"); 
     return; 
   }
-  showUploadResult("success", "Đang đồng bộ "+students.length+" HS lên Google Sheet...");
+  showUploadResult("success", "⏳ Đang đồng bộ "+students.length+" HS lên Google Sheet...");
   fetch(GAS_URL, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
@@ -1837,18 +1910,18 @@ function syncStudentsToGAS(students) {
   .then(function(r) { return r.json(); })
   .then(function(d) {
     if (d.success) {
-      showUploadResult("success", "✅ Đã lưu " + students.length + " HS lên Google Sheet!");
+      showUploadResult("success", "✅ Đã lưu " + students.length + " HS lên Google Sheet + PC!");
     } else {
-      showUploadResult("error", "Lỗi GAS: " + (d.error || d.message || "Không rõ"));
+      showUploadResult("error", "⚠️ Lỗi GAS: " + (d.error || d.message || "Không rõ") + ". Dữ liệu đã lưu trên PC.");
     }
   })
   .catch(function(e) {
-    showUploadResult("error", "Lỗi kết nối GAS: " + e.message + ". Dữ liệu đã lưu trên trình duyệt.");
+    showUploadResult("error", "⚠️ Không kết nối được GAS: " + e.message + ". Dữ liệu đã lưu trên PC.");
   });
 }
 
 function manualSyncToGAS() {
-  if (!GAS_URL) { showUploadResult("error","Chưa có URL GAS!"); return; }
+  if (!GAS_URL) { showUploadResult("error","Chưa có URL GAS! Vào Quản trị → nhập URL."); return; }
   if (STUDENTS_DATA.length === 0) { showUploadResult("error","Chưa có dữ liệu HS!"); return; }
   syncStudentsToGAS(STUDENTS_DATA);
 }
@@ -1871,38 +1944,58 @@ function applyGASData(data) {
   if (data.soChuNhiem) GAS_CN_DATA = data.soChuNhiem;
   reloadAppData();
   updateHomeStats();
-  // Cập nhật logo trên header
   document.querySelectorAll(".app-logo-name").forEach(function(el) { el.textContent = SCHOOL; });
   document.querySelectorAll(".app-logo-addr").forEach(function(el) { el.textContent = ADDR; });
 }
 
 function cacheData(data) {
-  try { sessionStorage.setItem("qh_cache", JSON.stringify(data)); } catch(e) {}
+  try { localStorage.setItem("ys_data", JSON.stringify(data)); } catch(e) {}
 }
 
 function loadCache() {
   try {
-    var c = sessionStorage.getItem("qh_cache");
-    if (c) { var d = JSON.parse(c); applyGASData(d); console.log("📦 Đã tải dữ liệu từ cache"); return true; }
-  } catch(e) {}
+    // Ưu tiên localStorage (dữ liệu PC, tồn tại vĩnh viễn)
+    var c = localStorage.getItem("ys_data");
+    // Fallback: thử sessionStorage cũ nếu có
+    if (!c) c = sessionStorage.getItem("qh_cache");
+    if (c) {
+      var d = JSON.parse(c);
+      applyGASData(d);
+      console.log("📦 Đã tải dữ liệu từ PC: " + (d.totalStudents||0) + " HS" + (d.savedAt ? " (lưu lúc " + d.savedAt + ")" : ""));
+      // Migrate sessionStorage sang localStorage
+      if (!localStorage.getItem("ys_data")) {
+        localStorage.setItem("ys_data", c);
+        sessionStorage.removeItem("qh_cache");
+      }
+      return true;
+    }
+  } catch(e) { console.log("⚠️ Lỗi đọc cache:", e.message); }
   return false;
 }
 
 (function(){
-  // Bước 1: Tải cache trước (có ngay dữ liệu)
-  loadCache();
-  // Bước 2: Fetch từ GAS để cập nhật mới nhất
+  // Bước 1: Tải dữ liệu từ PC trước (có ngay khi mở)
+  var hasCache = loadCache();
+  // Bước 2: Đồng bộ từ Google Sheet để lấy bản mới nhất
   if (typeof GAS_URL !== "undefined" && GAS_URL) {
     fetch(GAS_URL + "?action=getData")
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.success) {
-          applyGASData(data);
-          cacheData(data);
-          console.log("✅ Đã đồng bộ " + data.totalStudents + " HS, " + (data.totalClasses||0) + " lớp từ Google Sheet");
+          // Chỉ cập nhật nếu GAS có dữ liệu nhiều hơn hoặc PC chưa có
+          var gasHasMore = data.students && data.students.length > 0;
+          if (gasHasMore || !hasCache) {
+            applyGASData(data);
+            cacheData(data); // Lưu lại vào PC
+            console.log("✅ Đã đồng bộ từ Google Sheet: " + data.totalStudents + " HS, " + (data.totalClasses||0) + " lớp, " + (data.totalCBGV||0) + " CBGV");
+          } else {
+            console.log("ℹ️ Google Sheet trống, giữ dữ liệu từ PC");
+          }
         }
       })
-      .catch(function(e) { console.log("⚠️ GAS offline, dùng cache:", e.message); });
+      .catch(function(e) { console.log("⚠️ GAS offline, dùng dữ liệu PC:", e.message); });
+  } else {
+    if (!hasCache) console.log("ℹ️ Chưa có GAS_URL và chưa có dữ liệu trên PC");
   }
 })();
 
