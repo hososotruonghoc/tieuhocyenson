@@ -111,7 +111,7 @@ table.dt tr:hover td{background:#fafbfc}
 .search-input:focus{border-color:#3B82F6}
 footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:center;font-size:11px}
 
-@media(max-width:900px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-desc{margin:0 auto 28px}.hero-tiles{max-width:100%}.hero-cards{display:none}.grades-grid{grid-template-columns:repeat(3,1fr)}.stats-row{grid-template-columns:1fr 1fr}.page-flex{flex-direction:column}.sidebar{width:100%;border-right:none;border-bottom:1px solid #e8ecf0;padding:10px}.app-nav{gap:4px}#hs-grid{grid-template-columns:1fr!important}}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;text-align:center}.hero-desc{margin:0 auto 28px}.hero-tiles{max-width:100%}.hero-cards{display:none}.grades-grid{grid-template-columns:repeat(3,1fr)}.stats-row{grid-template-columns:1fr 1fr}.page-flex{flex-direction:column}.sidebar{width:100%;border-right:none;border-bottom:1px solid #e8ecf0;padding:10px}.app-nav{gap:4px}#hs-grid{grid-template-columns:1fr!important}#cbgv-grid{grid-template-columns:1fr!important}}
 @media(max-width:600px){.grades-grid{grid-template-columns:1fr 1fr}.stats-row{grid-template-columns:1fr}.hero-title{font-size:30px!important}}
 
 /* ANIMATIONS */
@@ -169,6 +169,8 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
 .seat-name:focus{background:rgba(255,255,255,.9);box-shadow:0 0 0 2px #3b82f6}
 
 #home-nav span[data-page]:hover{background:#DBEAFE;color:#1E3A8A}
+.cbgv-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)!important}
+.cbgv-card a:hover{background:#2557D6!important;color:#fff!important}
 </style>
 </head>
 <body>
@@ -180,6 +182,7 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
   <div style="display:flex;align-items:center;gap:10px;cursor:pointer" data-page="home"><div style="width:36px;height:36px;border-radius:10px;background:#2557D6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;box-shadow:0 3px 10px rgba(37,87,214,.3)">YS</div><div style="font-size:14px;font-weight:700;color:#0f172a">YS <span style="color:#1E3A8A;-webkit-text-fill-color:#1E3A8A">Digital School</span></div></div>
   <div style="display:flex;align-items:center;gap:4px">
     <span data-page="hoso" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Hồ sơ số</span>
+    <span data-page="cbgv" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Hồ sơ CBGV</span>
     <span data-page="chunhiem" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Sổ chủ nhiệm</span>
     <span data-page="tracuu" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Tra cứu</span>
     <span data-page="thongke" style="color:#475569;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s">Thống kê</span>
@@ -197,15 +200,17 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
       <h1 class="hero-title" id="hero-school-name">Trường Tiểu Học<br>Yên Sơn</h1>
       <div class="hero-loc" id="hero-addr"><i class="fa-solid fa-location-dot"></i> Xã Đô Lương, tỉnh Nghệ An</div>
       <p class="hero-desc">Nền tảng tích hợp Hồ sơ số, Sổ chủ nhiệm điện tử và Quản lý chất lượng giáo dục — hướng tới quản trị nhà trường minh bạch, chính xác và hiệu quả.</p>
-      <div class="hero-tiles">
+      <div class="hero-tiles" style="grid-template-columns:1fr 1fr 1fr;max-width:480px">
         <div class="htile ht2" data-page="hoso"><div class="htile-icons"><i class="fa-solid fa-folder-open"></i><i class="fa-solid fa-building-columns"></i></div><div class="htile-name">Hồ sơ số nhà trường</div></div>
-        <div class="htile ht1" data-page="chunhiem"><div class="htile-icons"><i class="fa-solid fa-book-open"></i><i class="fa-solid fa-robot"></i></div><div class="htile-name">Sổ chủ nhiệm AI</div></div>
-        <div class="htile ht3" data-page="tracuu"><div class="htile-icons"><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-user"></i></div><div class="htile-name">Tra cứu học sinh</div></div>
-        <div class="htile ht4" data-page="thongke"><div class="htile-icons"><i class="fa-solid fa-chart-pie"></i><i class="fa-solid fa-chart-bar"></i></div><div class="htile-name">Thống kê</div></div>
+        <div class="htile ht1" data-page="cbgv"><div class="htile-icons"><i class="fa-solid fa-users"></i><i class="fa-solid fa-id-badge"></i></div><div class="htile-name">Hồ sơ CBGV</div></div>
+        <div class="htile ht3" data-page="chunhiem"><div class="htile-icons"><i class="fa-solid fa-book-open"></i><i class="fa-solid fa-robot"></i></div><div class="htile-name">Sổ chủ nhiệm AI</div></div>
+        <div class="htile ht4" data-page="tracuu" style="grid-column:1/span 1"><div class="htile-icons"><i class="fa-solid fa-magnifying-glass"></i><i class="fa-solid fa-user"></i></div><div class="htile-name">Tra cứu học sinh</div></div>
+        <div class="htile ht2" data-page="thongke"><div class="htile-icons"><i class="fa-solid fa-chart-pie"></i><i class="fa-solid fa-chart-bar"></i></div><div class="htile-name">Thống kê</div></div>
       </div>
     </div>
     <div class="hero-cards">
       <div class="hcard hc2" data-page="hoso"><div class="hcard-icon"><i class="fa-solid fa-building-columns"></i></div><div class="hcard-body"><div class="hcard-title">Hồ sơ số nhà trường</div><div class="hcard-sub">10 mảng · Danh mục hồ sơ · Google Drive</div></div><div class="hcard-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="hcard hc4" data-page="cbgv"><div class="hcard-icon"><i class="fa-solid fa-users"></i></div><div class="hcard-body"><div class="hcard-title">Hồ sơ năng lực CBGV</div><div class="hcard-sub">27 CBGVNV · Hồ sơ cá nhân · Google Drive</div></div><div class="hcard-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
       <div class="hcard hc1" data-page="chunhiem"><div class="hcard-icon"><i class="fa-solid fa-book-open"></i></div><div class="hcard-body"><div class="hcard-title">Sổ chủ nhiệm AI</div><div class="hcard-sub">--- lớp · --- học sinh · Nhận xét AI</div></div><div class="hcard-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
       <div class="hcard hc3" data-page="tracuu"><div class="hcard-icon"><i class="fa-solid fa-magnifying-glass"></i></div><div class="hcard-body"><div class="hcard-title">Tra cứu học sinh</div><div class="hcard-sub">Tìm kiếm nhanh toàn hệ thống</div></div><div class="hcard-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
       <div class="hcard hc4" data-page="thongke"><div class="hcard-icon"><i class="fa-solid fa-chart-line"></i></div><div class="hcard-body"><div class="hcard-title">Thống kê</div><div class="hcard-sub">Biểu đồ · Dữ liệu trực quan</div></div><div class="hcard-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
@@ -265,6 +270,7 @@ footer{padding:30px;background:var(--ink);color:rgba(255,255,255,.4);text-align:
 </div>
 
 <!-- APP PAGES (hidden by default, shown on click) -->
+<div class="page" id="pg-cbgv"><div id="cbgv-app"></div></div>
 <div class="page" id="pg-chunhiem"><div id="cn-app"></div></div>
 <div class="page" id="pg-hoso"><div id="hs-app"></div></div>
 <div class="page" id="pg-tracuu"><div id="tc-app"></div></div>
@@ -437,13 +443,14 @@ function showPage(id){
   window.scrollTo(0,0);
   if(id==="chunhiem"){cnState={view:"home",selG:null,selC:null,tab:"overview"};renderCN()}
   if(id==="hoso")renderHS();
+  if(id==="cbgv")renderCBGV();
   if(id==="tracuu")renderTC();
   if(id==="thongke")renderTK();
   if(id==="admin")renderAdmin();
 }
 
 function appHeader(active){
-  var h='<header class="app-hdr"><div class="app-hdr-inner"><div class="app-logo" data-page="home"><div class="app-logo-box">🏫</div><div><div class="app-logo-name">'+SCHOOL+'</div><div class="app-logo-addr">'+ADDR+'</div></div></div><div class="app-nav"><button class="app-nav-btn '+(active==="home"?"on":"")+'" data-page="home">🏠 Trang chủ</button><button class="app-nav-btn '+(active==="hoso"?"on":"")+'" data-page="hoso">📁 Hồ sơ số</button><button class="app-nav-btn '+(active==="chunhiem"?"on":"")+'" data-page="chunhiem">📖 Sổ chủ nhiệm</button><button class="app-nav-btn '+(active==="tracuu"?"on":"")+'" data-page="tracuu">🔍 Tra cứu</button><button class="app-nav-btn '+(active==="thongke"?"on":"")+'" data-page="thongke">📊 Thống kê</button><button class="app-nav-btn '+(active==="admin"?"on":"")+'" onclick="requireLogin(\'admin\')">⚙️ Quản trị</button></div></div></header>';
+  var h='<header class="app-hdr"><div class="app-hdr-inner"><div class="app-logo" data-page="home"><div class="app-logo-box">🏫</div><div><div class="app-logo-name">'+SCHOOL+'</div><div class="app-logo-addr">'+ADDR+'</div></div></div><div class="app-nav"><button class="app-nav-btn '+(active==="home"?"on":"")+'" data-page="home">🏠 Trang chủ</button><button class="app-nav-btn '+(active==="hoso"?"on":"")+'" data-page="hoso">📁 Hồ sơ số</button><button class="app-nav-btn '+(active==="cbgv"?"on":"")+'" data-page="cbgv">👥 Hồ sơ CBGV</button><button class="app-nav-btn '+(active==="chunhiem"?"on":"")+'" data-page="chunhiem">📖 Sổ chủ nhiệm</button><button class="app-nav-btn '+(active==="tracuu"?"on":"")+'" data-page="tracuu">🔍 Tra cứu</button><button class="app-nav-btn '+(active==="thongke"?"on":"")+'" data-page="thongke">📊 Thống kê</button><button class="app-nav-btn '+(active==="admin"?"on":"")+'" onclick="requireLogin(\'admin\')">⚙️ Quản trị</button></div></div></header>';
   return h;
 }
 
@@ -662,6 +669,63 @@ function groupItems(items){
   });
   if(current)groups.push(current);
   return groups;
+}
+
+// ===== HỒ SƠ CBGV =====
+function renderCBGV(){
+  var h=appHeader("cbgv");
+  h+='<div class="app-wrap">';
+  // Header
+  h+='<div style="display:flex;align-items:center;gap:14px;margin-bottom:8px"><div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#1E40AF,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff"><i class="fa-solid fa-users"></i></div><div><div style="font-size:22px;font-weight:800">Hồ sơ năng lực CBGVNV</div><div style="color:#888;font-size:12px">'+SCHOOL+' · Năm học '+YEAR+' · '+CBGV_LIST.length+' cán bộ, giáo viên, nhân viên</div></div></div>';
+  // Stats mini
+  var cntGV=0,cntBGH=0,cntNV=0;
+  CBGV_LIST.forEach(function(cb){
+    var t=cb.n.toLowerCase();
+    if(t.indexOf("hiệu trưởng")>=0||t.indexOf("phó hiệu")>=0)cntBGH++;
+    else if(t.indexOf("kế toán")>=0||t.indexOf("y tế")>=0||t.indexOf("thư viện")>=0)cntNV++;
+    else cntGV++;
+  });
+  h+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 24px">';
+  h+='<div style="background:#fff;border-radius:14px;border:1px solid #e8ecf0;padding:16px 18px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#DBEAFE;display:flex;align-items:center;justify-content:center;font-size:18px;color:#1E3A8A"><i class="fa-solid fa-users"></i></div><div><div style="font-size:22px;font-weight:800;color:#1E3A8A">'+CBGV_LIST.length+'</div><div style="font-size:11px;color:#888">Tổng CBGVNV</div></div></div>';
+  h+='<div style="background:#fff;border-radius:14px;border:1px solid #e8ecf0;padding:16px 18px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;font-size:18px;color:#D97706"><i class="fa-solid fa-user-tie"></i></div><div><div style="font-size:22px;font-weight:800;color:#D97706">'+cntBGH+'</div><div style="font-size:11px;color:#888">Ban Giám hiệu</div></div></div>';
+  h+='<div style="background:#fff;border-radius:14px;border:1px solid #e8ecf0;padding:16px 18px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#D1FAE5;display:flex;align-items:center;justify-content:center;font-size:18px;color:#059669"><i class="fa-solid fa-chalkboard-user"></i></div><div><div style="font-size:22px;font-weight:800;color:#059669">'+cntGV+'</div><div style="font-size:11px;color:#888">Giáo viên</div></div></div>';
+  h+='<div style="background:#fff;border-radius:14px;border:1px solid #e8ecf0;padding:16px 18px;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:10px;background:#E0EDFF;display:flex;align-items:center;justify-content:center;font-size:18px;color:#2557D6"><i class="fa-solid fa-user-gear"></i></div><div><div style="font-size:22px;font-weight:800;color:#2557D6">'+cntNV+'</div><div style="font-size:11px;color:#888">Nhân viên</div></div></div>';
+  h+='</div>';
+  // Search
+  h+='<div style="margin-bottom:20px"><input type="text" id="cbgv-search" class="search-input" placeholder="🔍  Tìm kiếm giáo viên theo tên, chức vụ..." style="border-radius:14px;padding:13px 18px"></div>';
+  // Card grid
+  h+='<div id="cbgv-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px">';
+  var roleColors={"hiệu trưởng":{bg:"linear-gradient(135deg,#1E3A8A,#2557D6)",icon:"fa-user-tie",tag:"#FEF3C7",tagC:"#92400E"},"phó hiệu":{bg:"linear-gradient(135deg,#1E40AF,#3B82F6)",icon:"fa-user-tie",tag:"#FEF3C7",tagC:"#92400E"},"tổ trưởng":{bg:"linear-gradient(135deg,#059669,#10B981)",icon:"fa-star",tag:"#D1FAE5",tagC:"#065F46"},"tổ phó":{bg:"linear-gradient(135deg,#0891B2,#22D3EE)",icon:"fa-star-half-stroke",tag:"#CFFAFE",tagC:"#155E75"},"kế toán":{bg:"linear-gradient(135deg,#D97706,#F59E0B)",icon:"fa-calculator",tag:"#FEF3C7",tagC:"#92400E"},"y tế":{bg:"linear-gradient(135deg,#DC2626,#F87171)",icon:"fa-heart-pulse",tag:"#FEE2E2",tagC:"#991B1B"},"tpt đội":{bg:"linear-gradient(135deg,#7C3AED,#A78BFA)",icon:"fa-flag",tag:"#EDE9FE",tagC:"#5B21B6"}};
+  CBGV_LIST.forEach(function(cb,i){
+    var parts=cb.n.split(" — ");
+    var name=parts[0]||"";
+    var role=parts[1]||"Giáo viên";
+    var roleLow=role.toLowerCase();
+    var rc=null;
+    Object.keys(roleColors).forEach(function(k){if(roleLow.indexOf(k)>=0)rc=roleColors[k]});
+    if(!rc)rc={bg:"linear-gradient(135deg,#2557D6,#60A5FA)",icon:"fa-chalkboard-user",tag:"#DBEAFE",tagC:"#1E40AF"};
+    var initials=name.split(" ");
+    var ini=initials.length>=2?initials[initials.length-2].charAt(0)+initials[initials.length-1].charAt(0):name.charAt(0);
+    h+='<div class="cbgv-card" style="background:#fff;border-radius:16px;border:1px solid #e8ecf0;overflow:hidden;transition:all .3s;cursor:default" data-name="'+esc(cb.n)+'">';
+    h+='<div style="height:6px;background:'+rc.bg+'"></div>';
+    h+='<div style="padding:20px 18px 16px;display:flex;align-items:center;gap:14px">';
+    h+='<div style="width:48px;height:48px;border-radius:14px;background:'+rc.bg+';display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:800;flex-shrink:0">'+esc(ini)+'</div>';
+    h+='<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(name)+'</div>';
+    h+='<span style="display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:'+rc.tag+';color:'+rc.tagC+'">'+esc(role)+'</span></div>';
+    if(cb.l)h+='<a href="'+cb.l+'" target="_blank" style="width:36px;height:36px;border-radius:10px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;color:#2557D6;font-size:14px;flex-shrink:0;transition:all .2s" title="Xem hồ sơ"><i class="fa-solid fa-folder-open"></i></a>';
+    h+='</div></div>';
+  });
+  h+='</div></div>';
+  document.getElementById("cbgv-app").innerHTML=h;
+  // Search
+  var si=document.getElementById("cbgv-search");
+  if(si)si.addEventListener("input",function(){
+    var q=si.value.toLowerCase().trim();
+    document.querySelectorAll("#cbgv-grid .cbgv-card").forEach(function(c){
+      var n=(c.getAttribute("data-name")||"").toLowerCase();
+      c.style.display=(!q||n.indexOf(q)>=0)?"":"none";
+    });
+  });
 }
 
 function renderHS(){
