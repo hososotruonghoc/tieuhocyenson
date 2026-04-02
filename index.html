@@ -1316,7 +1316,6 @@ function handleUploadGV(input) {
 }
 
 function saveTeachersFromForm() {
-  // Lấy danh sách lớp từ form hiện tại (động, không hardcode)
   var inputs = document.querySelectorAll("[id^='gv-']");
   var rows = [];
   inputs.forEach(function(el) {
@@ -1330,17 +1329,22 @@ function saveTeachersFromForm() {
     if (name) rows.push({lop:c, gvcn:name, pw:pw});
   });
   reloadAppData();
-  cacheCurrentData();
   if (GAS_URL) {
+    showUploadResult("success","⏳ Đang lưu "+rows.length+" GVCN lên Google Sheet...");
     fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"teachers",rows:rows})})
       .then(function(r){return r.json()})
       .then(function(d){
-        if(d.success) showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN lên Google Sheet + PC!");
-        else showUploadResult("error","⚠️ Lỗi GAS. Đã lưu trên PC.");
+        cacheCurrentData();
+        if(d.success) showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN lên Google Sheet!");
+        else showUploadResult("error","⚠️ Lỗi: "+(d.error||"Không rõ")+". Đã lưu tạm trên PC.");
       })
-      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
+      .catch(function(e){
+        cacheCurrentData();
+        showUploadResult("error","⚠️ Không kết nối được Google Sheet. Đã lưu tạm trên PC.");
+      });
   } else {
-    showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN trên PC!");
+    cacheCurrentData();
+    showUploadResult("success","✅ Đã lưu "+rows.length+" GVCN trên PC (chưa kết nối Google Sheet)!");
   }
   setTimeout(function() { renderAdmin(); }, 600);
 }
@@ -1555,18 +1559,22 @@ function saveCBGVTable() {
   });
   GAS_CBGVNV = data;
   reloadAppData();
-  // Luôn lưu PC trước
-  cacheCurrentData();
   if (GAS_URL) {
+    showUploadResult("success","⏳ Đang lưu "+data.length+" CBGV lên Google Sheet...");
     fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"cbgvnv",rows:data})})
       .then(function(r){return r.json()})
       .then(function(d){
-        if(d.success) showUploadResult("success","✅ Đã lưu "+data.length+" CBGV lên Google Sheet + PC!");
-        else showUploadResult("error","⚠️ Lỗi GAS: "+(d.error||"Không rõ")+". Đã lưu trên PC.");
+        cacheCurrentData();
+        if(d.success) showUploadResult("success","✅ Đã lưu "+data.length+" CBGV lên Google Sheet!");
+        else showUploadResult("error","⚠️ Lỗi: "+(d.error||"Không rõ")+". Đã lưu tạm trên PC.");
       })
-      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
+      .catch(function(e){
+        cacheCurrentData();
+        showUploadResult("error","⚠️ Không kết nối được Google Sheet. Đã lưu tạm trên PC.");
+      });
   } else {
-    showUploadResult("success","✅ Đã lưu "+data.length+" CBGV trên PC!");
+    cacheCurrentData();
+    showUploadResult("success","✅ Đã lưu "+data.length+" CBGV trên PC (chưa kết nối Google Sheet)!");
   }
 }
 
@@ -1729,23 +1737,26 @@ function saveSchoolConfig() {
   if (s && s.value.trim()) SCHOOL = s.value.trim();
   if (a && a.value.trim()) ADDR = a.value.trim();
   if (y && y.value.trim()) YEAR = y.value.trim();
-  // Cập nhật TOÀN BỘ giao diện
   updateSchoolInfo();
-  // Lưu vào PC (localStorage)
-  cacheCurrentData();
-  showUploadResult("success","✅ Đã cập nhật thông tin trường trên PC!");
-  // Tự đồng bộ lên GAS nếu có URL
+  var principal = p ? p.value.trim() : "";
+  var phone = ph ? ph.value.trim() : "";
+  var email = em ? em.value.trim() : "";
   if (GAS_URL) {
-    var principal = p ? p.value.trim() : "";
-    var phone = ph ? ph.value.trim() : "";
-    var email = em ? em.value.trim() : "";
+    showUploadResult("success","⏳ Đang lưu thông tin trường lên Google Sheet...");
     fetch(GAS_URL, {method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"config",school:SCHOOL,addr:ADDR,year:YEAR,principal:principal,phone:phone,email:email,adminPW:ADMIN_PW})})
       .then(function(r){return r.json()})
       .then(function(d){
-        if(d.success) showUploadResult("success","✅ Đã lưu thông tin trường lên Google Sheet + PC!");
-        else showUploadResult("error","⚠️ Lỗi GAS. Đã lưu trên PC.");
+        cacheCurrentData();
+        if(d.success) showUploadResult("success","✅ Đã lưu thông tin trường lên Google Sheet!");
+        else showUploadResult("error","⚠️ Lỗi: "+(d.error||"Không rõ")+". Đã lưu tạm trên PC.");
       })
-      .catch(function(e){showUploadResult("error","⚠️ GAS offline: "+e.message+". Đã lưu trên PC.");});
+      .catch(function(e){
+        cacheCurrentData();
+        showUploadResult("error","⚠️ Không kết nối được Google Sheet. Đã lưu tạm trên PC.");
+      });
+  } else {
+    cacheCurrentData();
+    showUploadResult("success","✅ Đã lưu thông tin trường trên PC (chưa kết nối Google Sheet)!");
   }
 }
 function saveConfigToGAS() {
@@ -1948,19 +1959,22 @@ function cacheCurrentData() {
       savedAt: new Date().toLocaleString("vi-VN")
     };
     localStorage.setItem("ys_data", JSON.stringify(data));
-    console.log("💾 Đã lưu " + STUDENTS_DATA.length + " HS vào PC (localStorage)");
-  } catch(e) { console.log("⚠️ Lỗi lưu localStorage:", e.message); }
+  } catch(e) {}
 }
 
+// ===== CHIẾN LƯỢC LƯU TRỮ =====
+// Ưu tiên 1: Google Sheet (nguồn chính, đồng bộ giữa các máy)
+// Ưu tiên 2: localStorage trên PC (cache nhanh khi GAS chậm/offline)
+// Khi lưu: GAS trước → thành công → cache PC
+// Khi mở: cache PC trước (nhanh) → fetch GAS (luôn ghi đè cache)
 
 function syncStudentsToGAS(students) {
-  // Luôn lưu PC trước
-  cacheCurrentData();
-  if (!GAS_URL) { 
-    showUploadResult("success", "✅ Đã lưu "+students.length+" HS trên PC (chưa kết nối Google Sheet)"); 
-    return; 
+  if (!GAS_URL) {
+    cacheCurrentData();
+    showUploadResult("success", "✅ Đã lưu "+students.length+" HS trên PC (chưa kết nối Google Sheet)");
+    return;
   }
-  showUploadResult("success", "⏳ Đang đồng bộ "+students.length+" HS lên Google Sheet...");
+  showUploadResult("success", "⏳ Đang lưu "+students.length+" HS lên Google Sheet...");
   fetch(GAS_URL, {
     method: "POST",
     headers: {"Content-Type": "text/plain"},
@@ -1968,33 +1982,41 @@ function syncStudentsToGAS(students) {
   })
   .then(function(r) { return r.json(); })
   .then(function(d) {
+    cacheCurrentData();
     if (d.success) {
-      showUploadResult("success", "✅ Đã lưu " + students.length + " HS lên Google Sheet + PC!");
+      showUploadResult("success", "✅ Đã lưu " + students.length + " HS lên Google Sheet!");
     } else {
-      showUploadResult("error", "⚠️ Lỗi GAS: " + (d.error || d.message || "Không rõ") + ". Dữ liệu đã lưu trên PC.");
+      showUploadResult("error", "⚠️ Lỗi: " + (d.error || "Không rõ") + ". Đã lưu tạm trên PC.");
     }
   })
   .catch(function(e) {
-    showUploadResult("error", "⚠️ Không kết nối được GAS: " + e.message + ". Dữ liệu đã lưu trên PC.");
+    cacheCurrentData();
+    showUploadResult("error", "⚠️ Không kết nối được Google Sheet. Đã lưu tạm trên PC.");
   });
 }
 
 function manualSyncToGAS() {
-  if (!GAS_URL) { showUploadResult("error","Chưa có URL GAS! Vào Quản trị → nhập URL."); return; }
+  if (!GAS_URL) { showUploadResult("error","Chưa có URL Google Sheet! Vào Quản trị → nhập URL."); return; }
   if (STUDENTS_DATA.length === 0) { showUploadResult("error","Chưa có dữ liệu HS!"); return; }
   syncStudentsToGAS(STUDENTS_DATA);
 }
 
 function applyGASData(data) {
   if (!data || !data.success) return;
+  // Học sinh
   if (data.students && data.students.length > 0) {
     STUDENTS_DATA.length = 0;
     data.students.forEach(function(s) { STUDENTS_DATA.push(s); });
   }
-  Object.keys(data.teachers || {}).forEach(function(k) { TEACHERS_DATA[k] = data.teachers[k]; });
+  // GVCN
+  if (data.teachers) {
+    Object.keys(TEACHERS_DATA).forEach(function(k) { delete TEACHERS_DATA[k]; });
+    Object.keys(data.teachers).forEach(function(k) { TEACHERS_DATA[k] = data.teachers[k]; });
+  }
   if (data.classPW) CLASS_PW = data.classPW;
-  if (data.config && data.config["Mật khẩu Admin"]) ADMIN_PW = data.config["Mật khẩu Admin"];
+  // Cấu hình trường
   if (data.config) {
+    if (data.config["Mật khẩu Admin"]) ADMIN_PW = data.config["Mật khẩu Admin"];
     if (data.config["Tên trường"]) SCHOOL = data.config["Tên trường"];
     if (data.config["Địa chỉ"]) ADDR = data.config["Địa chỉ"];
     if (data.config["Năm học"]) YEAR = data.config["Năm học"];
@@ -2013,48 +2035,30 @@ function cacheData(data) {
 
 function loadCache() {
   try {
-    // Ưu tiên localStorage (dữ liệu PC, tồn tại vĩnh viễn)
     var c = localStorage.getItem("ys_data");
-    // Fallback: thử sessionStorage cũ nếu có
     if (!c) c = sessionStorage.getItem("qh_cache");
-    if (c) {
-      var d = JSON.parse(c);
-      applyGASData(d);
-      console.log("📦 Đã tải dữ liệu từ PC: " + (d.totalStudents||0) + " HS" + (d.savedAt ? " (lưu lúc " + d.savedAt + ")" : ""));
-      // Migrate sessionStorage sang localStorage
-      if (!localStorage.getItem("ys_data")) {
-        localStorage.setItem("ys_data", c);
-        sessionStorage.removeItem("qh_cache");
-      }
-      return true;
-    }
-  } catch(e) { console.log("⚠️ Lỗi đọc cache:", e.message); }
+    if (c) { applyGASData(JSON.parse(c)); return true; }
+  } catch(e) {}
   return false;
 }
 
 (function(){
-  // Bước 1: Tải dữ liệu từ PC trước (có ngay khi mở)
-  var hasCache = loadCache();
-  // Bước 2: Đồng bộ từ Google Sheet để lấy bản mới nhất
+  // Bước 1: Tải cache PC trước (hiển thị nhanh)
+  loadCache();
+
+  // Bước 2: LUÔN fetch từ Google Sheet — đây là nguồn chính
+  // Dù cache PC có dữ liệu, GAS luôn ghi đè để đảm bảo đồng bộ giữa các máy
   if (typeof GAS_URL !== "undefined" && GAS_URL) {
     fetch(GAS_URL + "?action=getData")
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.success) {
-          // Chỉ cập nhật nếu GAS có dữ liệu nhiều hơn hoặc PC chưa có
-          var gasHasMore = data.students && data.students.length > 0;
-          if (gasHasMore || !hasCache) {
-            applyGASData(data);
-            cacheData(data); // Lưu lại vào PC
-            console.log("✅ Đã đồng bộ từ Google Sheet: " + data.totalStudents + " HS, " + (data.totalClasses||0) + " lớp, " + (data.totalCBGV||0) + " CBGV");
-          } else {
-            console.log("ℹ️ Google Sheet trống, giữ dữ liệu từ PC");
-          }
+          applyGASData(data);
+          cacheData(data);
+          console.log("✅ Đã tải từ Google Sheet: " + (data.totalStudents||0) + " HS, " + (data.totalClasses||0) + " lớp");
         }
       })
-      .catch(function(e) { console.log("⚠️ GAS offline, dùng dữ liệu PC:", e.message); });
-  } else {
-    if (!hasCache) console.log("ℹ️ Chưa có GAS_URL và chưa có dữ liệu trên PC");
+      .catch(function(e) { console.log("⚠️ Google Sheet offline, dùng cache PC"); });
   }
 })();
 
