@@ -6,7 +6,7 @@
 <!-- ========== ĐỔI TÊN TRƯỜNG Ở ĐÂY KHI TẠO CHO TRƯỜNG MỚI ========== -->
 <title>Hồ sơ số - Trường Tiểu học Yên Sơn</title>
 <meta name="description" content="Hồ sơ số chính thức Trường Tiểu học Yên Sơn, Xã Đô Lương, Tỉnh Nghệ An. Hệ thống quản lý hồ sơ số, danh sách CBGV và học sinh.">
-<link rel="canonical" href="https://schoolrecords.github.io/tieuhocyenson/">
+<link rel="canonical" href="https://hososotruonghoc.github.io/tieuhocyenson/">
 <!-- Mobile / PWA-friendly -->
 <meta name="theme-color" content="#2d8a6e">
 <meta name="format-detection" content="telephone=no">
@@ -27,21 +27,21 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Hồ sơ số Trường Tiểu Học">
 <meta property="og:locale" content="vi_VN">
-<meta property="og:url" content="https://schoolrecords.github.io/tieuhocyenson/">
+<meta property="og:url" content="https://hososotruonghoc.github.io/tieuhocyenson/">
 <meta property="og:title" content="Hồ sơ số - Trường Tiểu học Yên Sơn">
 <meta property="og:description" content="Hồ sơ số chính thức Trường Tiểu học Yên Sơn, Xã Đô Lương, Tỉnh Nghệ An. Hệ thống quản lý hồ sơ số, danh sách CBGV và học sinh.">
-<meta property="og:image" content="https://schoolrecords.github.io/tieuhocyenson/og-banner.jpg">
-<meta property="og:image:secure_url" content="https://schoolrecords.github.io/tieuhocyenson/og-banner.jpg">
+<meta property="og:image" content="https://hososotruonghoc.github.io/tieuhocyenson/og-banner.jpg">
+<meta property="og:image:secure_url" content="https://hososotruonghoc.github.io/tieuhocyenson/og-banner.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Hồ sơ số Trường Tiểu học Yên Sơn — Xã Đô Lương, Tỉnh Nghệ An">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://schoolrecords.github.io/tieuhocyenson/">
+<meta name="twitter:url" content="https://hososotruonghoc.github.io/tieuhocyenson/">
 <meta name="twitter:title" content="Hồ sơ số - Trường Tiểu học Yên Sơn">
 <meta name="twitter:description" content="Hồ sơ số chính thức Trường Tiểu học Yên Sơn, Xã Đô Lương, Tỉnh Nghệ An.">
-<meta name="twitter:image" content="https://schoolrecords.github.io/tieuhocyenson/og-banner.jpg">
+<meta name="twitter:image" content="https://hososotruonghoc.github.io/tieuhocyenson/og-banner.jpg">
 <!-- Zalo — tuỳ chọn: nếu có Zalo OA thì điền ID, nếu không thì bỏ qua -->
 <meta property="zalo:official_account_id" content="">
 <!-- ========== HẾT PHẦN CẦN ĐỔI ========== -->
@@ -149,8 +149,8 @@
   .records-head{text-align:center;max-width:700px;margin:0 auto 40px}
   .kicker{color:var(--g2);font-weight:600;text-transform:uppercase;font-size:.78rem;letter-spacing:.2em;display:block;margin-bottom:8px}
   .records-head h2{font-size:clamp(2rem,3.5vw,3rem);color:var(--g-deep);margin-bottom:14px;font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.02em;line-height:1.1}
-  .rec-dual{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:26px auto 0;max-width:720px}
-  .rec-dual-btn{flex:1;min-width:280px;display:flex;align-items:center;gap:14px;background:white;border:1px solid #dde7e0;border-radius:18px;padding:16px 20px;cursor:pointer;font-family:inherit;text-align:left;box-shadow:0 10px 26px -14px rgba(30,107,84,.25);transition:all .25s;position:relative;overflow:hidden}
+  .rec-dual{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:26px auto 0;max-width:1080px}
+  .rec-dual-btn{flex:1;min-width:280px;max-width:340px;display:flex;align-items:center;gap:14px;background:white;border:1px solid #dde7e0;border-radius:18px;padding:16px 20px;cursor:pointer;font-family:inherit;text-align:left;text-decoration:none;color:inherit;box-shadow:0 10px 26px -14px rgba(30,107,84,.25);transition:all .25s;position:relative;overflow:hidden}
   .rec-dual-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(141,211,168,.12),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
   .rec-dual-btn:hover{transform:translateY(-3px);border-color:var(--g2);box-shadow:0 18px 38px -16px rgba(30,107,84,.4)}
   .rec-dual-btn:hover::after{opacity:1}
@@ -759,11 +759,19 @@
       <button class="rec-dual-btn" onclick="openCatalogOverview()">
         <span class="rec-dual-ic" style="background:linear-gradient(135deg,#b8e6cc,#4a9e6e);color:white">📋</span>
         <span class="rec-dual-body">
-          <b>Tổng quan Danh mục HSS</b>
+          <b>Tổng quan Danh mục Hồ sơ số</b>
           <span>11 nhóm · <b id="recDualHss">108</b> hồ sơ</span>
         </span>
         <span class="rec-dual-arrow">→</span>
       </button>
+      <a class="rec-dual-btn" href="https://hososoeduvn.github.io/kiemdinhchatluong/" target="_blank" rel="noopener noreferrer">
+        <span class="rec-dual-ic" style="background:linear-gradient(135deg,#a9d7f0,#2d6e9a);color:white">🏅</span>
+        <span class="rec-dual-body">
+          <b>Hệ thống Kiểm định Chất lượng</b>
+          <span>5 Tiêu chuẩn · Tự đánh giá · Đánh giá ngoài</span>
+        </span>
+        <span class="rec-dual-arrow">↗</span>
+      </a>
       <button class="rec-dual-btn" onclick="openMCOverview()">
         <span class="rec-dual-ic" style="background:linear-gradient(135deg,#ffe29a,#c79a2a);color:white">🎗️</span>
         <span class="rec-dual-body">
@@ -851,7 +859,13 @@
           </div>
           <div class="step-body">
             <h4>Xem danh mục Hồ sơ số</h4>
-            <p>Cuộn đến mục <b>"Hồ sơ số"</b> → Nhấn vào thẻ nhóm (VD: "Tổ chức & quản lý") → Danh sách hồ sơ con hiện ra. Dùng <b>ô tìm kiếm</b> phía trên để lọc nhanh theo tên hoặc mã (VD: "thi đua", "1.2.1").</p>
+            <p>Cuộn đến mục <b>"Hồ sơ số"</b>. Ở đầu mục có <b>3 ô truy cập nhanh</b>:</p>
+            <ul style="padding-left:18px;margin:6px 0 10px;color:#3a4a42;font-size:.88rem;line-height:1.6">
+              <li>📋 <b>Tổng quan Danh mục Hồ sơ số</b> — xem toàn bộ 109 hồ sơ chia theo 11 nhóm.</li>
+              <li>🏅 <b>Hệ thống Kiểm định Chất lượng</b> — mở trang KĐCL ở tab mới (xem Bước 4).</li>
+              <li>🎗️ <b>Danh mục Minh chứng</b> — tra cứu 95 minh chứng KĐCL theo 5 tiêu chuẩn.</li>
+            </ul>
+            <p>Phía dưới là danh mục chi tiết — nhấn vào thẻ nhóm (VD: "Tổ chức & quản lý") → danh sách hồ sơ con hiện ra. Dùng <b>ô tìm kiếm</b> để lọc nhanh (VD: "thi đua", "1.2.1").</p>
           </div>
         </div>
 
@@ -868,10 +882,58 @@
           </div>
         </div>
 
-        <!-- Bước 4: Quản lý học sinh -->
+        <!-- Bước 4: Hệ thống Kiểm định Chất lượng -->
+        <div class="step-card full">
+          <div class="step-illust" style="background:linear-gradient(135deg,#e3f2fd,#c8e0f7)">
+            <span class="step-num" style="background:linear-gradient(135deg,#a9d7f0,#2d6e9a);color:white">4</span>
+            <svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+              <!-- Tab trình duyệt: tab 1 (Hồ sơ số) + tab 2 mới (KĐCL) -->
+              <rect x="20" y="12" width="160" height="22" rx="6 6 0 0" fill="#fff" stroke="#d8e0dc"/>
+              <text x="34" y="27" font-size="8" fill="#2d8a6e" font-family="sans-serif">📚</text>
+              <text x="100" y="27" font-size="8" fill="#3a4a42" text-anchor="middle" font-family="sans-serif" font-weight="bold">Hồ sơ số - TH Yên Sơn</text>
+              <circle cx="170" cy="23" r="4" fill="none" stroke="#9fb5ac"/>
+              <text x="170" y="26" font-size="7" fill="#9fb5ac" text-anchor="middle">×</text>
+              <rect x="184" y="12" width="190" height="22" rx="6 6 0 0" fill="#a9d7f0" stroke="#2d6e9a"/>
+              <text x="198" y="27" font-size="8" fill="#2d6e9a" font-family="sans-serif">🏅</text>
+              <text x="276" y="27" font-size="8" fill="#1a4466" text-anchor="middle" font-family="sans-serif" font-weight="bold">Hệ thống Kiểm định Chất lượng</text>
+              <circle cx="364" cy="23" r="4" fill="none" stroke="#2d6e9a"/>
+              <text x="364" y="26" font-size="7" fill="#2d6e9a" text-anchor="middle">×</text>
+              <rect x="20" y="34" width="520" height="86" rx="0 0 10 10" fill="#fff" stroke="#d8e0dc"/>
+              <text x="40" y="56" font-size="10" fill="#2d6e9a" font-family="sans-serif" font-weight="bold">🏅 KIỂM ĐỊNH CHẤT LƯỢNG GIÁO DỤC</text>
+              <rect x="40" y="66" width="110" height="44" rx="8" fill="#f0f7fc" stroke="#a9d7f0"/>
+              <text x="95" y="82" font-size="8" fill="#2d6e9a" text-anchor="middle" font-family="sans-serif" font-weight="bold">Tự đánh giá</text>
+              <text x="95" y="98" font-size="7" fill="#5a7a90" text-anchor="middle" font-family="sans-serif">5 TC · 17 tiêu chí</text>
+              <rect x="160" y="66" width="110" height="44" rx="8" fill="#f0f7fc" stroke="#a9d7f0"/>
+              <text x="215" y="82" font-size="8" fill="#2d6e9a" text-anchor="middle" font-family="sans-serif" font-weight="bold">Minh chứng</text>
+              <text x="215" y="98" font-size="7" fill="#5a7a90" text-anchor="middle" font-family="sans-serif">Quản lý &amp; lưu trữ</text>
+              <rect x="280" y="66" width="110" height="44" rx="8" fill="#f0f7fc" stroke="#a9d7f0"/>
+              <text x="335" y="82" font-size="8" fill="#2d6e9a" text-anchor="middle" font-family="sans-serif" font-weight="bold">Báo cáo TĐG</text>
+              <text x="335" y="98" font-size="7" fill="#5a7a90" text-anchor="middle" font-family="sans-serif">Xuất Word/PDF</text>
+              <rect x="400" y="66" width="110" height="44" rx="8" fill="#fff4e0" stroke="#f0c77a"/>
+              <text x="455" y="82" font-size="8" fill="#8a6d15" text-anchor="middle" font-family="sans-serif" font-weight="bold">Đánh giá ngoài</text>
+              <text x="455" y="98" font-size="7" fill="#8a6d15" text-anchor="middle" font-family="sans-serif">Đón đoàn ĐGN</text>
+            </svg>
+          </div>
+          <div class="step-body">
+            <h4>🏅 Hệ thống Kiểm định Chất lượng Giáo dục (KĐCL)</h4>
+            <p>Đây là <b>hệ thống riêng</b> phục vụ quy trình Kiểm định chất lượng giáo dục theo <b>Thông tư 17/2018/TT-BGDĐT</b> (sửa đổi bởi TT 22/2024) và hướng dẫn tại <b>Công văn 5942/BGDĐT-QLCL</b>. Mở trong một tab riêng, <b>trang Hồ sơ số hiện tại vẫn còn nguyên</b> trên thanh công cụ — bạn có thể qua lại giữa 2 hệ thống thoải mái.</p>
+            <p style="margin-top:8px"><b>Cách mở:</b> Vào mục <b>"Hồ sơ số"</b> → nhấn ô giữa <b>"🏅 Hệ thống Kiểm định Chất lượng"</b> (nền xanh dương) → tab mới mở ra với trang KĐCL.</p>
+            <p style="margin-top:8px"><b>Các chức năng chính trong hệ thống KĐCL:</b></p>
+            <ul style="padding-left:18px;margin:6px 0 10px;color:#3a4a42;font-size:.88rem;line-height:1.7">
+              <li><b>Tự đánh giá (TĐG)</b> — Nhập Phiếu phân tích tiêu chí & xác định nội hàm cho từng tiêu chí trong 5 tiêu chuẩn (17 tiêu chí).</li>
+              <li><b>Phiếu đánh giá tiêu chí</b> — Đánh giá theo 4 mức độ cho từng tiêu chí, tự động tính kết quả.</li>
+              <li><b>Quản lý Minh chứng</b> — Thêm / sửa / xóa mã minh chứng <code>[H1-1.1-01]</code>, gắn link Drive, liên kết tới hồ sơ HSS.</li>
+              <li><b>Xuất Báo cáo TĐG</b> — Kết xuất văn bản Word/PDF chuẩn thể thức (NĐ 30/2020) để nộp cấp trên.</li>
+              <li><b>Hồ sơ Đánh giá ngoài (ĐGN)</b> — Chuẩn bị tài liệu đón đoàn ĐGN, Kế hoạch cải tiến chất lượng sau kiểm định.</li>
+            </ul>
+            <div class="step-tip">💡 <b>Mẹo chuyển tab nhanh:</b> Nhấn <kbd style="padding:1px 6px;border:1px solid #ccc;border-radius:3px;background:#f8f8f8;font-family:monospace;font-size:.78rem">Ctrl</kbd> + <kbd style="padding:1px 6px;border:1px solid #ccc;border-radius:3px;background:#f8f8f8;font-family:monospace;font-size:.78rem">Tab</kbd> trên máy tính để chuyển qua lại giữa trang Hồ sơ số và trang KĐCL.</div>
+          </div>
+        </div>
+
+        <!-- Bước 5: Quản lý học sinh -->
         <div class="step-card">
           <div class="step-illust" style="background:linear-gradient(135deg,#1e6b54,#165844)">
-            <span class="step-num" style="background:var(--accent);color:var(--g-deep)">4</span>
+            <span class="step-num" style="background:var(--accent);color:var(--g-deep)">5</span>
             <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg"><text x="160" y="16" font-size="9" fill="rgba(255,255,255,.9)" text-anchor="middle" font-family="sans-serif" font-weight="bold">MỤC "QUẢN LÝ HỌC SINH"</text><rect x="40" y="26" width="55" height="22" rx="11" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.25)"/><text x="67" y="40" font-size="7" fill="rgba(255,255,255,.7)" text-anchor="middle" font-family="sans-serif">Tất cả</text><rect x="104" y="26" width="55" height="22" rx="11" fill="#ffd66b"/><text x="131" y="40" font-size="7" fill="#1e6b54" text-anchor="middle" font-family="sans-serif" font-weight="bold">Khối 1</text><rect x="168" y="26" width="55" height="22" rx="11" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.25)"/><text x="195" y="40" font-size="7" fill="rgba(255,255,255,.7)" text-anchor="middle" font-family="sans-serif">Khối 2</text><rect x="232" y="26" width="55" height="22" rx="11" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.25)"/><text x="259" y="40" font-size="7" fill="rgba(255,255,255,.7)" text-anchor="middle" font-family="sans-serif">Khối 3</text><rect x="40" y="56" width="110" height="80" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.15)"/><rect x="48" y="60" width="94" height="3" rx="1" fill="#ffd66b"/><text x="95" y="80" font-size="8" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="bold">Lớp 1A</text><text x="70" y="96" font-size="14" fill="#ffd66b" font-family="serif" font-weight="bold">25</text><text x="100" y="96" font-size="14" fill="#8ec5ff" font-family="serif" font-weight="bold">12</text><text x="70" y="108" font-size="6" fill="rgba(255,255,255,.5)" font-family="sans-serif">Tổng</text><text x="100" y="108" font-size="6" fill="rgba(255,255,255,.5)" font-family="sans-serif">Nam</text><text x="95" y="128" font-size="7" fill="#ffd66b" font-family="sans-serif">Xem danh sách →</text><text x="160" y="56" font-size="18">👆</text><rect x="170" y="56" width="110" height="80" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.15)"/><rect x="178" y="60" width="94" height="3" rx="1" fill="#ffd66b"/><text x="225" y="80" font-size="8" fill="#fff" text-anchor="middle" font-family="sans-serif" font-weight="bold">Lớp 2A</text><text x="200" y="96" font-size="14" fill="#ffd66b" font-family="serif" font-weight="bold">28</text><text x="230" y="96" font-size="14" fill="#8ec5ff" font-family="serif" font-weight="bold">15</text></svg>
           </div>
           <div class="step-body">
@@ -880,10 +942,10 @@
           </div>
         </div>
 
-        <!-- Bước 5: Hồ sơ CBGVNV -->
+        <!-- Bước 6: Hồ sơ CBGVNV -->
         <div class="step-card">
           <div class="step-illust" style="background:linear-gradient(135deg,#f0f4ff,#dae7ff)">
-            <span class="step-num">5</span>
+            <span class="step-num">6</span>
             <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg"><text x="160" y="16" font-size="9" fill="#3858a8" text-anchor="middle" font-family="sans-serif" font-weight="bold">MỤC "HỒ SƠ CBGVNV"</text><rect x="30" y="26" width="120" height="110" rx="12" fill="#fff" stroke="#d8e0dc"/><rect x="30" y="26" width="120" height="35" rx="12" fill="#3fb28c"/><circle cx="90" cy="64" r="16" fill="#fff" stroke="#d8e0dc"/><text x="90" y="69" font-size="9" text-anchor="middle" fill="#2d8a6e" font-family="serif" font-weight="bold">NA</text><text x="90" y="88" font-size="8" text-anchor="middle" fill="#142a23" font-family="sans-serif" font-weight="bold">Nguyễn Thị A</text><text x="90" y="100" font-size="6" text-anchor="middle" fill="#6b7a72" font-family="sans-serif">Hiệu trưởng</text><rect x="56" y="108" width="68" height="18" rx="9" fill="#3fb28c"/><text x="90" y="120" font-size="7" fill="#fff" text-anchor="middle" font-family="sans-serif">📂 Hồ sơ cá nhân</text><text x="180" y="50" font-size="28">👆</text><text x="160" y="85" font-size="8" fill="#3858a8" font-family="sans-serif">Nhấn "Hồ sơ cá nhân"</text><text x="160" y="100" font-size="14">⬇️</text><rect x="160" y="108" width="140" height="30" rx="8" fill="#fff" stroke="#4285f4"/><rect x="160" y="108" width="140" height="14" rx="8" fill="#4285f4"/><text x="230" y="118" font-size="7" fill="#fff" text-anchor="middle" font-family="sans-serif">📁 Drive → Tải tệp lên</text><text x="230" y="133" font-size="7" fill="#4285f4" text-anchor="middle" font-family="sans-serif" font-weight="bold">+ Tải hồ sơ GV lên đây</text></svg>
           </div>
           <div class="step-body">
@@ -892,10 +954,10 @@
           </div>
         </div>
 
-        <!-- Bước 6: Điện thoại -->
+        <!-- Bước 7: Điện thoại -->
         <div class="step-card">
           <div class="step-illust" style="background:linear-gradient(135deg,#fff8e1,#fff0c8)">
-            <span class="step-num">6</span>
+            <span class="step-num">7</span>
             <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg"><rect x="120" y="5" width="80" height="140" rx="14" fill="#fff" stroke="#d8e0dc" stroke-width="2"/><rect x="120" y="5" width="80" height="24" rx="14" fill="#2d8a6e"/><text x="138" y="20" font-size="8" fill="#fff" font-family="sans-serif">📚</text><rect x="180" y="14" width="12" height="8" rx="2" fill="rgba(255,255,255,.3)"/><text x="186" y="21" font-size="7" fill="#fff" text-anchor="middle">☰</text><rect x="128" y="36" width="64" height="6" rx="3" fill="#eef2ef"/><rect x="128" y="48" width="28" height="22" rx="5" fill="#d6ecdb"/><text x="142" y="62" font-size="9" text-anchor="middle">🏫</text><rect x="162" y="48" width="28" height="22" rx="5" fill="#fff0d1"/><text x="176" y="62" font-size="9" text-anchor="middle">👩‍🏫</text><rect x="128" y="76" width="64" height="6" rx="3" fill="#eef2ef"/><rect x="128" y="88" width="64" height="18" rx="4" fill="#fff" stroke="#d8e0dc"/><rect x="132" y="92" width="4" height="4" rx="2" fill="#3fb28c"/><rect x="140" y="93" width="30" height="3" rx="1" fill="#eef2ef"/><rect x="128" y="110" width="64" height="18" rx="4" fill="#fff" stroke="#d8e0dc"/><rect x="132" y="114" width="4" height="4" rx="2" fill="#cbd3cf"/><rect x="140" y="115" width="25" height="3" rx="1" fill="#eef2ef"/><text x="260" y="55" font-size="9" fill="#8a6d00" font-family="sans-serif" font-weight="bold">📱 Trên</text><text x="260" y="70" font-size="9" fill="#8a6d00" font-family="sans-serif" font-weight="bold">điện thoại</text><text x="260" y="95" font-size="8" fill="#6b7a72" font-family="sans-serif">Giao diện tự</text><text x="260" y="108" font-size="8" fill="#6b7a72" font-family="sans-serif">điều chỉnh</text><text x="260" y="121" font-size="8" fill="#6b7a72" font-family="sans-serif">cho màn nhỏ</text></svg>
           </div>
           <div class="step-body">
@@ -1700,6 +1762,8 @@
     {q:'Làm sao thêm, sửa, xóa một hồ sơ?', a:'Vào Admin → Hồ sơ số: (1) Thêm: nhập Mã + Tên + Link ở thanh phía trên → nhấn "＋ Thêm". (2) Sửa tên: nhấn ✏️ bên phải. (3) Xóa: nhấn 🗑️ bên phải → xác nhận. Sau đó nhấn "Lưu thay đổi" để cập nhật lên Sheet.'},
     {q:'Đổi tên trường, địa chỉ ở đâu?', a:'Nhấn Admin → Thông tin → Sửa các trường Tên, Địa chỉ, SĐT, Email → nhấn "Lưu thay đổi". Dữ liệu được ghi trực tiếp lên Google Sheet tab "CauHinh".'},
     {q:'Mã hóa KĐCL nghĩa là gì?', a:'Cột "Mã hóa" cho biết hồ sơ đó phục vụ minh chứng cho tiêu chí nào trong KĐCL (TT17/2018 + TT22/2024). VD: TC1-1.1 = Tiêu chuẩn 1, Tiêu chí 1.1. Khi đoàn ĐGN đến, trường lọc theo mã hóa là có ngay bộ minh chứng.'},
+    {q:'Hệ thống Kiểm định Chất lượng (KĐCL) là gì? Khác gì với Hồ sơ số?', a:'Đây là <b>hệ thống riêng</b> dành cho quy trình KĐCLGD theo TT17/2018 + TT22/2024: thực hiện Tự đánh giá (5 tiêu chuẩn, 17 tiêu chí), quản lý minh chứng, xuất báo cáo TĐG và hồ sơ đón Đoàn Đánh giá ngoài. Khác biệt: Hồ sơ số là kho lưu trữ tài liệu theo chức năng (HT, PHT, Tổ CM...), còn KĐCL là công cụ làm báo cáo kiểm định. Mở hệ thống KĐCL: vào mục "Hồ sơ số" → bấm ô giữa 🏅 "Hệ thống Kiểm định Chất lượng" — tab mới mở ra, trang Hồ sơ số vẫn giữ nguyên.'},
+    {q:'Khi mở Hệ thống KĐCL thì trang Hồ sơ số có bị đóng không?', a:'<b>Không</b>. Hệ thống KĐCL mở ở <b>tab mới</b> của trình duyệt (target="_blank"). Trang Hồ sơ số vẫn nằm ở tab gốc trên thanh công cụ. Bạn có thể bấm qua lại giữa 2 tab bằng chuột hoặc nhấn Ctrl+Tab.'},
     {q:'Thêm ảnh hoạt động vào slideshow?', a:'Mở Sheet tab "Hinh Anh" → Thêm dòng mới: STT, Tiêu đề, Mô tả, Link ảnh (dán link Drive đã share Anyone), Loại (truong/hoatdong/banru/lehoi) → Làm mới dữ liệu trên web.'},
     {q:'Xem trên điện thoại có được không?', a:'Hoàn toàn được. Giao diện tự điều chỉnh cho màn hình nhỏ, menu thu gọn thành nút ☰ ở góc phải. Tất cả tính năng hoạt động bình thường trên điện thoại.'},
     {q:'Trường khác muốn dùng hệ thống này?', a:'(1) Tạo Google Sheet mới → Dán code GAS → Chạy setup() → Deploy Web App. (2) Copy file HTML → Dán URL API vào Admin → Thông tin → Đổi tên trường. (3) Upload HTML lên GitHub Pages. Liên hệ Zalo 0913 031 073 để được hỗ trợ.'},
