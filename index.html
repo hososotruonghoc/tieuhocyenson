@@ -89,11 +89,10 @@
   nav{position:absolute;top:0;left:0;right:0;z-index:10;padding:28px 6vw;display:flex;align-items:center;justify-content:space-between;color:white}
   .logo{display:flex;align-items:center;gap:12px;font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700}
   .logo-mark{width:42px;height:42px;border-radius:50%;background:var(--cream);display:grid;place-items:center;font-size:1.4rem;box-shadow:0 6px 20px rgba(0,0,0,.12)}
-  .nav-links{display:flex;gap:30px;list-style:none;font-size:.9rem;font-weight:500}
-  .nav-links a{color:white;text-decoration:none;opacity:.88;position:relative}
-  .nav-links a:hover{opacity:1}
-  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--accent);transition:width .25s}
-  .nav-links a:hover::after{width:100%}
+  .nav-links{display:flex;gap:10px;list-style:none;font-size:.88rem;font-weight:500;align-items:center}
+  .nav-links a{color:white;text-decoration:none;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);transition:all .22s;display:inline-flex;align-items:center;gap:5px;box-shadow:0 4px 10px -6px rgba(0,0,0,.25)}
+  .nav-links a:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.45);transform:translateY(-2px);box-shadow:0 8px 18px -8px rgba(0,0,0,.35)}
+  .nav-links a.nav-external .nav-ext-ic{font-size:.78rem;opacity:.7;margin-left:2px}
   .nav-cta{background:rgba(255,255,255,.15);backdrop-filter:blur(10px);padding:10px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.3);color:white;font-size:.85rem;cursor:pointer}
   .hamburger{display:none;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);width:44px;height:44px;border-radius:12px;color:white;cursor:pointer;font-size:1.3rem;align-items:center;justify-content:center}
   .mobile-menu{display:none;position:fixed;top:0;right:0;bottom:0;width:82%;max-width:340px;background:linear-gradient(160deg,var(--g2),var(--g-deep));z-index:100;padding:80px 30px 30px;transform:translateX(100%);transition:transform .35s ease;box-shadow:-20px 0 60px rgba(0,0,0,.3)}
@@ -294,7 +293,31 @@
   .teacher-card:nth-child(4n+2)::before{background:linear-gradient(135deg,#ffc973,#ff9b7a)}
   .teacher-card:nth-child(4n+3)::before{background:linear-gradient(135deg,#7fc99d,#3fb28c)}
   .teacher-card:nth-child(4n)::before{background:linear-gradient(135deg,#a9c7f5,#6b9fde)}
-  .teacher-card:hover{transform:translateY(-6px);box-shadow:0 25px 50px -20px rgba(30,107,84,.25)}
+  .teacher-card:hover{transform:translateY(-6px);box-shadow:0 25px 50px -20px rgba(30,107,84,.25);cursor:pointer}
+  .teacher-card:focus{outline:none;transform:translateY(-6px);box-shadow:0 0 0 3px rgba(63,178,140,.35),0 25px 50px -20px rgba(30,107,84,.25)}
+  /* ===== CBGV detail modal ===== */
+  .td-shell{background:#fdfbf4;border-radius:24px;width:96%;max-width:440px;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative;animation:tdPop .3s ease}
+  @keyframes tdPop{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:none}}
+  .td-hero{position:relative;text-align:center;padding:40px 24px 28px;color:white}
+  .td-badge{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);padding:5px 12px;border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+  .td-avatar{width:110px;height:110px;border-radius:50%;margin:0 auto 16px;background:white;display:grid;place-items:center;font-family:'Fraunces',serif;font-size:2.4rem;font-weight:600;color:var(--g-deep);border:5px solid white;box-shadow:0 10px 28px rgba(0,0,0,.25)}
+  .td-hero h3{font-family:'Fraunces',serif;font-size:1.35rem;margin-bottom:4px;color:white}
+  .td-hero .td-role{opacity:.92;font-size:.85rem;line-height:1.4}
+  .td-info{padding:20px 26px 12px}
+  .td-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px dashed #e6efe9}
+  .td-row:last-child{border-bottom:none}
+  .td-row .td-ic{flex-shrink:0;width:38px;height:38px;border-radius:12px;background:#eaf5ef;display:grid;place-items:center;font-size:1.05rem}
+  .td-row>div{display:flex;flex-direction:column;min-width:0;flex:1}
+  .td-row>div span{font-size:.72rem;color:#8a9690;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+  .td-row>div b{font-size:.9rem;color:var(--ink);font-weight:500;word-break:break-word}
+  .td-row>div b a{color:var(--g-deep);text-decoration:none;border-bottom:1px dotted var(--g2)}
+  .td-row>div b a:hover{color:var(--g2)}
+  .td-actions{padding:8px 26px 26px;text-align:center}
+  .td-actions .teacher-profile{padding:12px 22px;font-size:.86rem}
+  @media(max-width:480px){
+    .td-shell{max-width:100%;border-radius:20px 20px 0 0;margin-top:auto;max-height:92vh}
+    .td-overlay.open{align-items:flex-end}
+  }
   .teacher-avatar{width:82px;height:82px;border-radius:50%;margin:16px auto 16px;background:white;display:grid;place-items:center;font-family:'Fraunces',serif;font-size:1.9rem;font-weight:600;color:var(--g-deep);position:relative;border:4px solid white;box-shadow:0 6px 20px rgba(30,107,84,.2)}
   .teacher-card h4{font-family:'Fraunces',serif;font-size:1.02rem;margin-bottom:4px;color:var(--ink);position:relative}
   .teacher-role{font-size:.78rem;color:#6b7a72;margin-bottom:12px;display:block;position:relative;min-height:32px}
@@ -526,6 +549,12 @@
 
   /* ========== BẢNG MÃ HÓA MINH CHỨNG — STYLE MỚI ========== */
   .mc-shell{background:#e8f5ec;border-radius:24px;width:96%;max-width:1180px;max-height:96vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative}
+  /* Hướng dẫn modal shell — tương tự mc-shell */
+  .guide-shell{background:#fdfbf4;border-radius:24px;width:96%;max-width:1180px;max-height:96vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.35);position:relative}
+  .guide-embedded{padding:0!important;background:transparent!important}
+  .guide-embedded .guide-wrap{padding:12px 0 0!important;max-width:100%!important}
+  .guide-embedded .guide-head{text-align:center;margin-bottom:24px}
+  .guide-embedded .guide-head h2{font-family:'Fraunces',serif;color:var(--g-deep);font-size:clamp(1.8rem,3.2vw,2.4rem);margin-top:6px}
   .mc-close{position:absolute;top:18px;right:20px;width:40px;height:40px;background:white;border:1px solid #d9e7df;border-radius:50%;color:var(--g-deep);font-size:1.05rem;cursor:pointer;z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.06);transition:all .2s}
   .mc-close:hover{background:var(--g-deep);color:white;transform:rotate(90deg)}
   .mc-scroll{flex:1;overflow-y:auto;padding:44px 36px 28px}
@@ -685,9 +714,10 @@
     <li><a href="#home">Trang chủ</a></li>
     <li><a href="#about">Giới thiệu</a></li>
     <li><a href="#records">Hồ sơ số</a></li>
+    <li><a href="https://hososoeduvn.github.io/kiemdinhchatluong/" target="_blank" rel="noopener noreferrer" class="nav-external">Hệ thống KĐCL <span class="nav-ext-ic">↗</span></a></li>
     <li><a href="#teachers">Hồ sơ CBGVNV</a></li>
     <li><a href="#classes">Quản lý HS</a></li>
-    <li><a href="#guide">Hướng dẫn</a></li>
+    <li><a href="#" onclick="openGuideOverview();return false;">Hướng dẫn</a></li>
   </ul>
   <button class="nav-cta" onclick="openAdmin()">⚙ Admin</button>
   <button class="hamburger" onclick="toggleMenu()">☰</button>
@@ -698,9 +728,10 @@
   <a href="#home" onclick="toggleMenu()">Trang chủ</a>
   <a href="#about" onclick="toggleMenu()">Giới thiệu</a>
   <a href="#records" onclick="toggleMenu()">Hồ sơ số</a>
+  <a href="https://hososoeduvn.github.io/kiemdinhchatluong/" target="_blank" rel="noopener noreferrer">Hệ thống KĐCL ↗</a>
   <a href="#teachers" onclick="toggleMenu()">Hồ sơ CBGVNV</a>
   <a href="#classes" onclick="toggleMenu()">Quản lý HS</a>
-  <a href="#guide" onclick="toggleMenu()">Hướng dẫn</a>
+  <a href="#" onclick="toggleMenu();openGuideOverview();return false;">Hướng dẫn</a>
   <a href="#contact" onclick="toggleMenu()">Liên hệ</a>
   <button class="nav-cta" style="width:100%;margin-top:18px;font-size:.95rem;padding:14px" onclick="toggleMenu();openAdmin()">⚙ Admin</button>
 </aside>
@@ -824,13 +855,18 @@
   </div>
 </section>
 
-<section class="guide" id="guide">
-  <div class="guide-wrap">
-    <div class="guide-head">
+<!-- ===== HƯỚNG DẪN (modal overlay — mở từ menu) ===== -->
+<div class="admin-overlay" id="guideOverlay" onclick="if(event.target===this)closeGuideOverview()" style="display:none">
+ <div class="guide-shell">
+  <button class="mc-close" onclick="closeGuideOverview()" title="Đóng">✕</button>
+  <div class="mc-scroll" id="guideScroll">
+   <section class="guide guide-embedded" id="guide">
+    <div class="guide-wrap">
+     <div class="guide-head">
       <span class="kicker">Hướng dẫn sử dụng</span>
       <h2>Hướng dẫn sử dụng trang Hồ sơ số</h2>
-    </div>
-    <div class="guide-tabs" id="guideTabs">
+     </div>
+     <div class="guide-tabs" id="guideTabs">
       <button class="guide-tab active" onclick="guideTab('use')">📖 Cách sử dụng</button>
       <button class="guide-tab" onclick="guideTab('faq')">❓ Hỏi đáp</button>
     </div>
@@ -969,13 +1005,16 @@
       </div>
     </div>
 
-    <!-- Panel 2: Hỏi đáp -->
-    <div class="guide-panel" id="guideFaq">
+     <!-- Panel 2: Hỏi đáp -->
+     <div class="guide-panel" id="guideFaq">
       <div id="faqList"></div>
-    </div>
+     </div>
 
+    </div>
+   </section>
   </div>
-</section>
+ </div>
+</div>
 
 <section class="locate" id="contact">
   <div class="locate-wrap">
@@ -1208,6 +1247,14 @@
 </div>
 
 <!-- ===== BẢNG MÃ HÓA MINH CHỨNG KĐCL ===== -->
+<!-- ===== CHI TIẾT CBGV (modal popup cho từng người) ===== -->
+<div class="admin-overlay td-overlay" id="teacherOverlay" onclick="if(event.target===this)closeTeacherDetail()" style="display:none">
+  <div class="td-shell">
+    <button class="mc-close" onclick="closeTeacherDetail()" title="Đóng">✕</button>
+    <div id="teacherDetailBody"></div>
+  </div>
+</div>
+
 <div class="admin-overlay" id="mcOverlay" onclick="if(event.target===this)closeMCOverview()" style="display:none">
   <div class="mc-shell">
     <button class="mc-close" onclick="closeMCOverview()" title="Đóng">✕</button>
@@ -1276,7 +1323,7 @@
       <div class="logo" style="color:white"><div class="logo-mark">📚</div><span>Tiểu học Yên Sơn</span></div>
       <p>Hồ sơ số chính thức của Trường Tiểu học Yên Sơn – Xã Đô Lương, Tỉnh Nghệ An.</p>
     </div>
-    <div><h5>Liên kết</h5><a href="#home">Trang chủ</a><a href="#records">Hồ sơ số</a><a href="#teachers">Hồ sơ CBGVNV</a><a href="#classes">Quản lý HS</a></div>
+    <div><h5>Liên kết</h5><a href="#home">Trang chủ</a><a href="#records">Hồ sơ số</a><a href="https://hososoeduvn.github.io/kiemdinhchatluong/" target="_blank" rel="noopener noreferrer">Hệ thống KĐCL ↗</a><a href="#teachers">Hồ sơ CBGVNV</a><a href="#classes">Quản lý HS</a></div>
     <div><h5>Phụ huynh</h5><a href="#">Học bạ số</a><a href="#">Lịch học</a><a href="#">Hoạt động</a><a href="#">Học bạ</a></div>
     <div><h5>Kết nối</h5><a href="#">Facebook</a><a href="#">Zalo OA</a><a href="#">YouTube</a><a href="#">Hotline</a></div>
   </div>
@@ -1731,11 +1778,12 @@
     role = role || 'all';
     const list = role === 'all' ? TEACHERS : TEACHERS.filter(t => teacherType(t) === role);
     document.getElementById('teacherGrid').innerHTML = list.map(t => {
+      const origIdx = TEACHERS.indexOf(t);
       const extra = t.dob ? 'Sinh ngày '+t.dob : '';
       const btn = t.link
-        ? `<a class="teacher-profile" href="${escapeHtml(t.link)}" target="_blank" rel="noopener">📂 Hồ sơ cá nhân</a>`
+        ? `<a class="teacher-profile" href="${escapeHtml(t.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📂 Hồ sơ cá nhân</a>`
         : `<span class="teacher-profile disabled">📂 Chưa có</span>`;
-      return `<div class="teacher-card">
+      return `<div class="teacher-card" onclick="openTeacherDetail(${origIdx})" tabindex="0" role="button" title="Xem chi tiết">
         <div class="teacher-avatar">${initials(t.name)}</div>
         <h4>${escapeHtml(t.name)}</h4>
         <span class="teacher-role">${escapeHtml(t.role)}</span>
@@ -1744,6 +1792,57 @@
       </div>`;
     }).join('');
   }
+
+  // ============ TEACHER DETAIL MODAL ============
+  function openTeacherDetail(idx){
+    const t = TEACHERS[idx];
+    if(!t) return;
+    const ov = document.getElementById('teacherOverlay');
+    if(!ov) return;
+    const _safe = v => (v == null ? '' : String(v).trim());
+    const initial = initials(t.name);
+    const typeLabel = {bgh:'Ban giám hiệu', gv:'Giáo viên', nv:'Nhân viên'}[teacherType(t)] || '';
+    const typeBg = {bgh:'linear-gradient(135deg,#ffc973,#ff9b7a)', gv:'linear-gradient(135deg,#7fc99d,#3fb28c)', nv:'linear-gradient(135deg,#a9c7f5,#6b9fde)'}[teacherType(t)] || 'linear-gradient(135deg,var(--g1),var(--g2))';
+    const body = document.getElementById('teacherDetailBody');
+    const phone = _safe(t.phone);
+    const email = _safe(t.email);
+    const dob = _safe(t.dob);
+    const degree = _safe(t.degree);
+    const link = _safe(t.link);
+    body.innerHTML = `
+      <div class="td-hero" style="background:${typeBg}">
+        <div class="td-badge">${escapeHtml(typeLabel)}</div>
+        <div class="td-avatar">${initial}</div>
+        <h3>${escapeHtml(t.name)}</h3>
+        <p class="td-role">${escapeHtml(t.role || '')}</p>
+      </div>
+      <div class="td-info">
+        ${dob ? `<div class="td-row"><span class="td-ic">🎂</span><div><span>Ngày sinh</span><b>${escapeHtml(dob)}</b></div></div>` : ''}
+        ${degree ? `<div class="td-row"><span class="td-ic">🎓</span><div><span>Trình độ</span><b>${escapeHtml(degree)}</b></div></div>` : ''}
+        ${phone ? `<div class="td-row"><span class="td-ic">📞</span><div><span>Điện thoại</span><b><a href="tel:${escapeHtml(phone.replace(/\s+/g,''))}">${escapeHtml(phone)}</a></b></div></div>` : ''}
+        ${email ? `<div class="td-row"><span class="td-ic">✉️</span><div><span>Email</span><b><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></b></div></div>` : ''}
+      </div>
+      <div class="td-actions">
+        ${link ? `<a class="teacher-profile" href="${escapeHtml(link)}" target="_blank" rel="noopener">📂 Mở hồ sơ cá nhân trên Drive</a>` : `<span class="teacher-profile disabled">📂 Chưa có hồ sơ Drive</span>`}
+      </div>
+    `;
+    ov.style.display = 'flex';
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeTeacherDetail(){
+    const ov = document.getElementById('teacherOverlay');
+    if(!ov) return;
+    ov.style.display = 'none';
+    ov.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      const ov = document.getElementById('teacherOverlay');
+      if(ov && ov.classList.contains('open')) closeTeacherDetail();
+    }
+  });
 
   // ============ GUIDE TABS ============
   function guideTab(id){
@@ -1780,6 +1879,32 @@
   // ============ TỔNG QUAN DANH MỤC HSS ============
   const CAT_OV_COLORS = ['#2d8a6e','#3a7cc0','#e8833a','#1e6b54','#d4a843','#d06050','#8a5cb0','#3fb28c','#3a7cc0','#a08838','#6b4c8a'];
   const CAT_OV_ICONS = ['🏫','📋','📐','📂','💰','⭐','🚩','🤝','👩‍🏫','🎗️','📊'];
+
+  // ============ HƯỚNG DẪN OVERLAY ============
+  function openGuideOverview(){
+    const ov = document.getElementById('guideOverlay');
+    if(!ov) return;
+    ov.style.display = 'flex';
+    ov.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // reset scroll về đầu mỗi lần mở
+    const sc = document.getElementById('guideScroll');
+    if(sc) sc.scrollTop = 0;
+  }
+  function closeGuideOverview(){
+    const ov = document.getElementById('guideOverlay');
+    if(!ov) return;
+    ov.style.display = 'none';
+    ov.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // ESC để đóng modal Hướng dẫn
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      const ov = document.getElementById('guideOverlay');
+      if(ov && ov.classList.contains('open')) closeGuideOverview();
+    }
+  });
 
   function openCatalogOverview(){
     document.getElementById('catalogOverlay').style.display = 'flex';
