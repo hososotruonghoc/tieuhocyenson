@@ -1030,7 +1030,7 @@
       <div class="info-row"><div class="ico">✉</div><div><strong>Email</strong><span id="cfgEmail">th...@nghean.edu.vn</span></div></div>
       <div class="info-row"><div class="ico">🕐</div><div><strong>Giờ học</strong>7:00 – 17:00 (T2 – T6)</div></div>
     </div>
-    <div class="map-frame"><iframe src="https://www.openstreetmap.org/export/embed.html?bbox=105.55%2C18.95%2C105.75%2C19.15&layer=mapnik" loading="lazy"></iframe></div>
+    <div class="map-frame" id="mapFrame"><iframe id="mapIframe" src="https://www.openstreetmap.org/export/embed.html?bbox=105.55%2C18.95%2C105.75%2C19.15&layer=mapnik" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe></div>
   </div>
 </section>
 
@@ -2818,6 +2818,43 @@
       const heroP = document.querySelector('.hero-content p');
       if(heroP) heroP.textContent = '📍 ' + adm.schoolName + ' – ' + adm.schoolAddr;
     }
+    // Bản đồ — lấy link Google Maps từ CauHinh.B10 (key "Google Map")
+    applyMapEmbed();
+  }
+
+  // ----- Chuyển đổi link Google Maps bất kỳ → iframe embed URL -----
+  function _toMapEmbed(raw, addr){
+    const url = String(raw || '').trim();
+    if(!url) return null;
+    // 1) Đã là embed URL → dùng trực tiếp
+    if(url.indexOf('/maps/embed') >= 0) return url;
+    // 2) Người dùng dán cả thẻ <iframe ... src="..."> → lôi ra src
+    const srcMatch = url.match(/<iframe[^>]*src=["']([^"']+)["']/i);
+    if(srcMatch) return srcMatch[1];
+    // 3) Tọa độ trong URL dạng @lat,lng,zoom → dùng embed theo tọa độ
+    const coord = url.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)(?:,(\d+(?:\.\d+)?)z)?/);
+    if(coord){
+      const lat = coord[1], lng = coord[2], z = coord[3] || '16';
+      return 'https://maps.google.com/maps?q=' + lat + ',' + lng + '&z=' + z + '&output=embed';
+    }
+    // 4) URL q=lat,lng
+    const qc = url.match(/[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+    if(qc){
+      return 'https://maps.google.com/maps?q=' + qc[1] + ',' + qc[2] + '&z=16&output=embed';
+    }
+    // 5) Fallback: tìm theo địa chỉ text
+    const q = encodeURIComponent(addr || url);
+    return 'https://maps.google.com/maps?q=' + q + '&z=15&output=embed';
+  }
+
+  function applyMapEmbed(){
+    const cfg = (window.STATS && STATS.config) || {};
+    const raw = cfg.mapUrl || cfg.googleMap || cfg['Google Map'] || '';
+    const addr = cfg.address || '';
+    const ifr = document.getElementById('mapIframe');
+    if(!ifr) return;
+    const embed = _toMapEmbed(raw, addr);
+    if(embed) ifr.src = embed;
   }
 
   // --- Tab 2: Chỉnh sửa Hồ sơ số ---
